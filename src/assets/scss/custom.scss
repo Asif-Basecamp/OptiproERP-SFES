@@ -1,0 +1,23 @@
+@import './themes/default';
+
+html, body{
+    min-height: 100vh;
+}
+.bg-primary-gradient {
+    background: $primay-gradiant !important;
+}
+.bg-purple-gradient {
+    background: $purple-gradient!important;
+}
+
+.bg-peach-gradient {
+    background: $peach-gradient !important;
+}
+
+.bg-aqua-gradient {
+    background: $aqua-gradient!important;
+}
+
+.bg-blue-gradient {
+    background: $blue-gradiant !important;
+}

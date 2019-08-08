@@ -1,0 +1,20 @@
+.login-block {
+    padding: 30px 0;
+    margin: 0 auto;
+    background: url("~src/assets/images/auth/bg.jpg") no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.login-block .auth-box {
+    margin: 20px auto 0;
+    max-width: 450px;
+}
+.card-block {
+    padding: 1.25rem;
+}
