@@ -8,3 +8,7 @@
 .content{
     background-color: #f2f8f9;
 }
+input:-internal-autofill-selected {
+    background-color: #fff !important;
+    background-image: none !important;
+}

@@ -4,17 +4,25 @@
     background: url("~src/assets/images/auth/bg.jpg") no-repeat;
     background-size: cover;
     min-height: 100vh;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
     align-items: center;
+    background-attachment: fixed;
 }
 .login-block .auth-box {
     margin: 20px auto 0;
     max-width: 450px;
+    color:#fff;
+    overflow: hidden;
+    font-size: 12px;
+    // background: linear-gradient(120deg, rgba(0, 228, 208, 0.85), rgba(89, 131, 232, 0.85)) !important;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    & .card-header{
+        background: rgba(255,255,255,0.3);
+    }
+    & .card-body{
+        padding:20px 50px;
+    }
 }
-.card-block {
-    padding: 1.25rem;
-}
+// .card-block {
+// }
