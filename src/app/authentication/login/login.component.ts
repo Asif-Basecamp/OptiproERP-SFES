@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '@progress/kendo-angular-notification';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {
   }
@@ -16,4 +17,14 @@ export class LoginComponent implements OnInit {
     'Baseball', 'Basketball', 'Cricket', 'Field Hockey',
     'Football', 'Table Tennis', 'Tennis', 'Volleyball'
   ];
+  public show(): void {
+    this.notificationService.show({
+        content: 'Your data has been saved. Time for tea!',
+        cssClass: 'button-notification',
+        animation: { type: 'slide', duration: 400 },
+        position: { horizontal: 'right', vertical: 'top' },
+        type: { style: 'success', icon: true },
+        closable: true
+    });
+}
 }

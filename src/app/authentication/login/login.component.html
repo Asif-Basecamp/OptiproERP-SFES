@@ -42,8 +42,8 @@
                 <label for="workCenter" class="mb-0">Work Center <span class="text-danger">*</span></label>
                 <kendo-dropdownlist class="w-100" [data]="listItems" id="workCenter" [value]="'Basketball'"></kendo-dropdownlist>
               </div>
-              <div class="row form-group mb-1">
-                <div class="col-12">
+              <div class="row form-group mb-0">
+                <div class="col-12 d-flex align-items-center my-2">
                     <label class="custom-checkbox mb-0">
                       <input type="checkbox" value="">
                       <span class="checkbox"></span>
@@ -55,8 +55,8 @@
                 <label for="machine" class="mb-0">Machine <span class="text-danger">*</span></label>
                 <kendo-dropdownlist class="w-100" [data]="listItems" id="machine" [value]="'Basketball'"></kendo-dropdownlist>
               </div>
-              <div class="row form-group mb-1 ">
-                <div class="col-12">
+              <div class="row form-group mb-0">
+                <div class="col-12 d-flex align-items-center my-2">
                     <label class="custom-checkbox mb-0">
                       <input type="checkbox" value="">
                       <span class="checkbox"></span>
@@ -70,7 +70,7 @@
                 <div class="col-md-12 text-center" fxLayout="row">
                   <button type="button" class="btn btn-primary btn-lg rounded-0" fxFlex="100">Connect</button>
                   <!-- <span class="px-1"></span> -->
-                  <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100">Reset</button>
+                  <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100" (click)="show()">Reset</button>
                 </div>
               </div>  
             </div>

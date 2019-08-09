@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { LayoutModule } from './@layout/layout.module';
+import { NotificationModule } from '@progress/kendo-angular-notification';
+
 
 
 
@@ -24,7 +26,8 @@ import { LayoutModule } from './@layout/layout.module';
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     GridModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
