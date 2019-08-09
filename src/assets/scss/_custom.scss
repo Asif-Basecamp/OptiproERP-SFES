@@ -1,0 +1,107 @@
+@import './themes/default';
+@import './variables';
+
+html, body{
+    min-height: 100vh;
+}
+.bg-primary-gradient {
+    background: $primay-gradiant !important;
+}
+.bg-purple-gradient {
+    background: $purple-gradient!important;
+}
+
+.bg-peach-gradient {
+    background: $peach-gradient !important;
+}
+
+.bg-aqua-gradient {
+    background: $aqua-gradient!important;
+}
+
+.bg-blue-gradient {
+    background: $blue-gradiant !important;
+}
+
+.k-dropdown .k-dropdown-wrap{
+    border-color: #fff;
+    background-color: #fff;
+    color:#495057 !important
+}
+
+
+//Form control
+.custom-checkbox {
+    position: relative; // take it out of document flow
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+
+    & input[type="checkbox"]{
+        opacity:0;
+        width: 0;
+        height: 0;
+        overflow: hidden;        
+    }
+    & input[type="checkbox"] + span {
+      position: relative;
+      width:16px;
+      height:16px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    & input[type=checkbox] + span + span {
+        margin-left: 8px;
+        line-height: 1px;
+    }
+    & input[type="checkbox"] + span:before {
+      content: '';
+      display: inline-block;
+      vertical-align: text-top;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      background: white;
+      // background-image: url(~src/assets/images/svg/svg-sprite.svg#checkbox);
+      // background-image: url("~/images/svg/svg-sprite.svg#checkbox");
+    }
+    & input[type="checkbox"]:hover + span:before {
+      background: theme-color("primary");
+    }
+    & input[type="checkbox"]:focus + span {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12);
+    }
+    & input[type="checkbox"]:checked + span:before {
+      background: theme-color("primary");
+    }
+    & input[type="checkbox"]:disabled + span {
+      color: #b8b8b8;
+      cursor: auto;
+    }
+    & input[type="checkbox"]:disabled + span:before {
+      box-shadow: none;
+      background: #ddd;
+    }
+    & input[type="checkbox"]:checked + span:after {
+      content: '';
+      position: absolute;
+      left: 3px;
+      top: 7px;
+      background: white;
+      width: 2px;
+      height: 2px;
+      box-shadow: 
+        2px 0 0 white,
+        4px 0 0 white,
+        4px -2px 0 white,
+        4px -4px 0 white,
+        4px -6px 0 white,
+        4px -8px 0 white;
+      transform: rotate(45deg);
+    }
+  }
+
+  body .k-input, body .k-textbox > input{
+    font-size: 12px !important;
+  }
