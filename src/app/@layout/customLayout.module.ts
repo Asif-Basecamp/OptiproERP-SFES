@@ -5,15 +5,15 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
-// import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { MenuModule } from '@progress/kendo-angular-menu';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
     RouterModule,
-    // BsDropdownModule.forRoot(),
-    // CollapseModule.forRoot()
+    MenuModule
   ],
   exports: [
     FooterComponent,
@@ -26,4 +26,4 @@ import { RouterModule } from '@angular/router';
     SidebarComponent
   ]
 })
-export class LayoutModule { }
+export class CustomLayoutModule { }

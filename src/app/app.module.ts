@@ -9,8 +9,13 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { LayoutModule } from './@layout/layout.module';
+import { CustomLayoutModule } from './@layout/customLayout.module';
 import { NotificationModule } from '@progress/kendo-angular-notification';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+
+
+
 
 
 
@@ -27,7 +32,9 @@ import { NotificationModule } from '@progress/kendo-angular-notification';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     GridModule,
     BrowserAnimationsModule,
-    NotificationModule
+    NotificationModule,
+    CustomLayoutModule,
+    DialogsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

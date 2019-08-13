@@ -4,6 +4,31 @@
 html, body{
     min-height: 100vh;
 }
+.icon {
+  width: 16px;
+  height: auto;
+  fill: #fff;
+}
+//Layout
+.compact-layout {
+  & app-header .navbar-inner, & .layout-mode{
+    margin-left: auto;
+    margin-right: auto;
+    @media screen and (min-width: 576px){
+      max-width: 540px !important;
+    }
+    @media screen and (min-width: 768px){
+      max-width: 720px !important;
+    }
+    @media screen and (min-width: 992px){
+      max-width: 960px !important;
+    }
+    @media screen and (min-width: 1200px){
+      max-width: 1140px !important;
+    }
+  }
+}
+//Gradiant
 .bg-primary-gradient {
     background: $primay-gradiant !important;
 }
@@ -22,13 +47,27 @@ html, body{
 .bg-blue-gradient {
     background: $blue-gradiant !important;
 }
-
-.k-dropdown .k-dropdown-wrap{
-    border-color: #fff;
-    background-color: #fff;
-    color:#495057 !important
+//custom-ui
+button.btn.btn-icon {
+  padding: 4px 5px;
+  &.btn-outline-secondary{
+    &:hover, &:active{
+      & svg{
+        fill:#fff;
+      }
+    }
+    & svg{
+      fill:$secondary;
+    }
+  }
 }
 
+//bootstrap-custom
+.card{
+  box-shadow: 0 1px 10px 0 rgba(69, 90, 100, 0.08);
+  border:none;
+  border-radius: 5px;
+}
 
 //Form control
 .custom-checkbox {
@@ -102,6 +141,52 @@ html, body{
     }
   }
 
-  body .k-input, body .k-textbox > input{
-    font-size: 12px !important;
-  }
+// Kendo Custom
+body .k-input, body .k-textbox > input{
+  font-size: 12px !important;
+}
+body .k-widget, body .k-reset{
+  font-size: 12px;
+}
+body .k-popup.k-menu-popup {
+  padding: 0;
+  margin: 0;
+  font-size:12px;
+  min-width: 135px;
+}
+// body .k-tabstrip > .k-content{
+//   border:none;
+// }
+// body .k-tabstrip-top > .k-tabstrip-items .k-item{
+//   border-top: none;
+// }
+body .k-tabstrip-top > .k-tabstrip-items .k-item:not(:first-of-type){
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+body .k-tabstrip-top > .k-tabstrip-items .k-item:first-of-type {
+  // border-left: none;  
+  border-top-right-radius: 0;
+}
+body .k-tabstrip-items {
+  background: #00e4d0;
+  background: $primay-gradiant !important;  
+  border-radius: 5px 5px 0 0;
+}
+body .k-tabstrip-items .k-item{
+  // color:#212529;
+  color:#fff;
+}
+body .k-tabstrip-items .k-item:not(.k-state-active):hover{
+  border-color: transparent;
+  color: #fff;
+  background-color: rgba(255,255,255,0.2);
+}
+body .k-tabstrip > .k-content {
+  padding: 1rem;
+}
+.k-dropdown .k-dropdown-wrap{
+  border-color: #fff;
+  background-color: #fff;
+  color:#495057 !important
+}

@@ -10,8 +10,11 @@ export class HeaderComponent implements OnInit {
 
     constructor() {
     }
-
     ngOnInit() {
+    }
+
+    functionM(){
+        console.log(this);
     }
 
 }
