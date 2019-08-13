@@ -43,7 +43,10 @@ export class LoginComponent implements OnInit {
   selectedCompany: string;
   selectedWhse: string;
   selectedWorkCenter: string;
-  selectedMachineValue: string;
+  selectedMachine: string;
+
+  requireMachine: any;
+  rememberMe: any;
   
   constructor(private router: Router, private notificationService: NotificationService, 
     private loginService: LoginService, private commonService: Commonservice, private translate: TranslateService, private httpClient: HttpClient) { 
@@ -224,7 +227,7 @@ export class LoginComponent implements OnInit {
            this.setCookie(Constants.CompID, this.selectedCompany, 365);
            this.setCookie('whseId', this.selectedWhse, 365);
            this.setCookie('WorkCenter', this.selectedWorkCenter, 365);
-           this.setCookie('machineId', this.selectedMachineValue, 365);
+           this.setCookie('machineId', this.selectedMachine, 365);
          } else {
            this.setCookie('cookieEmail', "", 365);
            this.setCookie('cookiePassword', "", 365);
@@ -361,15 +364,15 @@ export class LoginComponent implements OnInit {
         for (var i = 0; i < this.machineList.length; i++) {
           if (this.getCookie(Constants.machine) == this.machineList[i].U_O_EQUP_ID) {
             this.selectedMachineModel = this.machineList[i];
-            this.selectedMachineValue = this.selectedMachineModel.U_O_EQUP_ID;
+            this.selectedMachine = this.selectedMachineModel.U_O_EQUP_ID;
             break;
           }
         }
        } else if(this.machineList.length>0){
             this.selectedMachineModel = this.machineList[0];
-            this.selectedMachineValue = this.selectedMachineModel.U_O_EQUP_ID;
+            this.selectedMachine = this.selectedMachineModel.U_O_EQUP_ID;
        }
-      console.log("Selected machine: "+this.selectedMachineValue);
+      console.log("Selected machine: "+this.selectedMachine);
     },
     error => {
     }

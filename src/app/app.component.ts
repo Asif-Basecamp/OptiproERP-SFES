@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
           console.log('Header is : ' + this.compactLayout);
         }else{
           document.body.classList.remove("compact-layout");
-          console.log('Header is : ' + this.compactLayout);
+          console.log('compact-layout is : ' + this.compactLayout);
         }
       }
       

@@ -18,7 +18,7 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
 
 
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
 
