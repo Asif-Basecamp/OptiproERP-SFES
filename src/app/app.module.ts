@@ -17,8 +17,14 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
 
 
 
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { FormsModule } from '@angular/forms';
 
-
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -32,9 +38,20 @@ import { DialogsModule } from '@progress/kendo-angular-dialog';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     GridModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     NotificationModule,
     CustomLayoutModule,
-    DialogsModule
+    DialogsModule,
+    FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      },
+      isolate: false
+    }),
+    NotificationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
