@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule),    
-    data: { showHeader: true, showSidebar: false, showFooter:false, compactLayout:false }
+    data: { showHeader: false, showSidebar: false, showFooter:false, compactLayout:false }
   },
   { path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),    
