@@ -1,8 +1,33 @@
-.no-side-bar{
-  & .navbar > .container-fluid{
-    max-width: 100%;
+//Layout
+.navbar-nav.navbar-right{
+  ::ng-deep{
+    ul.k-menu{
+      padding: 0;
+      background-color: transparent;
+    }
+    .k-menu.k-menu-horizontal > .k-item{
+      padding: 0 10px;
+    }
+    .k-menu.k-menu-horizontal > .k-item > .k-link {
+      padding: 0;
+    }
+    .k-menu-expand-arrow{
+      display: none;
+    }
+    .nav-link {
+        display: flex;
+        align-items: stretch;
+        padding: 0;
+        ::ng-deep{
+          .user-name{
+            display: flex;
+            align-items: center;
+          }
+        }
+    }
   }
 }
+
 .navbar-dropdown{
   font-size: 0.9rem;
   margin-top: 0;
@@ -113,3 +138,4 @@
   -webkit-animation-name: slideIn;
   animation-name: slideIn;
 }
+

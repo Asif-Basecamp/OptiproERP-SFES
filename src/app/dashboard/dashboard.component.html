@@ -1,3 +1,70 @@
-<p fxFlexFill>
-  dashboard works!
-</p>
+<div class="container-fluid mt-4" fxFlex="100%">
+  <div class="row" fxFlex>
+    <div class="col-sm-12 col-12" fxFlex="100%">
+      <div class="layout-mode" fxFlex fxLayout="column">
+        <div class="card mb-3">
+          <div class="card-body pt-3 pb-4">
+            <form>
+              <div class="row">
+                <div class="col-sm-4 mb-sm-0 mb-1">
+                  <label class="mb-0" for="task">Task</label>
+                  <div class="d-flex align-items-center">
+                    <div class="input-group">
+                      <input type="text" class="form-control form-control-sm" id="task">
+                      <div class="input-group-append">
+                        <button class="btn btn-primary btn-sm btn-icon" type="button">
+                            <svg viewBox="0 0 73.168 73.168" class="icon">
+                                <use xlink:href="#menu-alt"></use>
+                            </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm ml-1 btn-icon" type="button">
+                        <svg viewBox="0 0 512 512" class="icon">
+                            <use xlink:href="#qr"></use>
+                        </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-4 mb-sm-0 mb-1">
+                  <label class="mb-0" for="task">WO#</label>
+                  <input type="text" class="form-control form-control-sm" id="wo">
+                </div>
+                <div class="col-sm-4 mb-sm-0 mb-1">
+                  <label class="mb-0" for="workCenter">Work Center</label>
+                  <input type="text" class="form-control form-control-sm" id="workCenter">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card mb-3" fxFlex>
+          <div class="card-body" fxFlex>
+            <kendo-tabstrip fxFlex>
+              <kendo-tabstrip-tab [title]="'Details'" [selected]="true">
+                <ng-template kendoTabContent>
+                  <app-details ></app-details>
+                </ng-template>
+              </kendo-tabstrip-tab>
+              <kendo-tabstrip-tab [title]="'Time Entry'">
+                <ng-template kendoTabContent>
+                  <app-time-entry></app-time-entry>
+                </ng-template>
+              </kendo-tabstrip-tab>
+              <kendo-tabstrip-tab [title]="'Resources'">
+                <ng-template kendoTabContent>
+                  <app-resources></app-resources>
+                </ng-template>
+              </kendo-tabstrip-tab>
+              <kendo-tabstrip-tab [title]="'Attachments'">
+                <ng-template kendoTabContent>
+                  <app-attachments></app-attachments>
+                </ng-template>
+              </kendo-tabstrip-tab>
+            </kendo-tabstrip>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

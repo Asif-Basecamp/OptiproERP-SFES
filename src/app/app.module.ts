@@ -9,11 +9,16 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { LayoutModule } from './@layout/layout.module';
+import { CustomLayoutModule } from './@layout/customLayout.module';
 import { NotificationModule } from '@progress/kendo-angular-notification';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+
+
+
 
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '@angular/forms';
 
@@ -34,6 +39,9 @@ export function createTranslateLoader(http: HttpClient) {
     GridModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NotificationModule,
+    CustomLayoutModule,
+    DialogsModule,
     FormsModule,
     TranslateModule.forRoot({
       loader: {
