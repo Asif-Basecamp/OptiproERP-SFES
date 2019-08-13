@@ -28,6 +28,9 @@ html, body{
     }
   }
 }
+body.no-header .content{
+  max-height: 100vh !important;
+}
 //Gradiant
 .bg-primary-gradient {
     background: $primay-gradiant !important;

@@ -76,11 +76,11 @@ export class LoginComponent implements OnInit {
     // }
 
     // Apply classes on Body
-    const element = document.getElementsByTagName("body")[0];
-    element.className = "";
-    element.classList.add("opti_body-login");
-    element.classList.add("opti_account-module");
-    console.log("init", "init");
+    // const element = document.getElementsByTagName("body")[0];
+    // element.className = "";
+    // element.classList.add("login");
+    // element.classList.add("opti_account-module");
+    // console.log("init", "init");
 
     this.httpClient.get('./assets/config.json').subscribe(
       data => {

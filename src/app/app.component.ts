@@ -26,17 +26,24 @@ export class AppComponent implements OnInit {
         console.log('Footer : ' + this.showFooter);
         if(this.showSidebar){
           document.body.classList.remove("no-sidebar");
-          console.log('Header is : ' + this.showSidebar);
+          console.log('Sidebar is : ' + this.showSidebar);
         }else{
           document.body.classList.add("no-sidebar");
-          console.log('Header is : ' + this.showSidebar);
+          console.log('Sidebar is : ' + this.showSidebar);
         }
         if(this.compactLayout){
           document.body.classList.add("compact-layout");
-          console.log('Header is : ' + this.compactLayout);
+          console.log('Compact layout is : ' + this.compactLayout);
         }else{
           document.body.classList.remove("compact-layout");
-          console.log('compact-layout is : ' + this.compactLayout);
+          console.log('Compact layout is : ' + this.compactLayout);
+        }
+        if(this.showHeader){
+          document.body.classList.remove("no-header");
+          console.log('Header is : ' + this.showHeader);
+        }else{
+          document.body.classList.add("no-header");
+          console.log('Header is : ' + this.showHeader);
         }
       }
       
