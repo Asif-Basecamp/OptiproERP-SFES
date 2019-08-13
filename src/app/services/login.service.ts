@@ -93,7 +93,7 @@ export class LoginService {
      * @param username
      * @param password 
      */
-    validateLogin(username: String, password: String): Observable<any> {
+    validateUserLogin(username: String, password: String): Observable<any> {
       //JSON Obeject prepared to be send as a param to API.
       let jObject = {
         Login: JSON.stringify([{
@@ -120,4 +120,35 @@ export class LoginService {
        }
       return this.httpclient.post(this.config_params.service_url + this.url_GetLicenseData, jObject, this.httpOptions);
     }
+
+    validateShiftTime(compId: string, emplId: string, workCenter: string, date: any): Observable<any> {
+      var jObject = { 
+        CompanyName: JSON.stringify([{ 
+          Username: localStorage.getItem(Constants.UserId), 
+          CompanyDBId: compId, 
+          EmpId: emplId, 
+          WorkCenter: workCenter,
+          Date: date }]) 
+        };
+      return this.httpclient.post(this.config_params.service_url + this.url_ValidateShiftTime, jObject, this.httpOptions);
+    }
+
+    menuRecord(): Observable<any> {
+      var jObject = { 
+        Permission: JSON.stringify([{ 
+          UserCode: localStorage.getItem(Constants.UserId)
+         }]) 
+        };
+      return this.httpclient.post(this.config_params.service_url + this.url_GetMenuRecord, jObject, this.httpOptions);
+    }
+
+    userLoginLog(): Observable<any> {
+      var jObject = { 
+        Permission: JSON.stringify([{ 
+          UserCode: localStorage.getItem(Constants.UserId)
+         }]) 
+        };
+      return this.httpclient.post(this.config_params.service_url + this.url_GetMenuRecord, jObject, this.httpOptions);
+    }
   }
+
