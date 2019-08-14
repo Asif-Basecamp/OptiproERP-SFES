@@ -46,23 +46,20 @@ export class LoginComponent implements OnInit {
   selectedMachine: string;
   requireMachine: any;
   rememberMe: any;
-  
-  constructor(private router: Router, private notificationService: NotificationService, 
-    private loginService: LoginService, private commonService: Commonservice, private translate: TranslateService, private httpClient: HttpClient) { 
-      let userLang = navigator.language.split('-')[0];
+
+  constructor(private router: Router, private notificationService: NotificationService,
+    private loginService: LoginService, private commonService: Commonservice, private translate: TranslateService, private httpClient: HttpClient) {
+    let userLang = navigator.language.split('-')[0];
     userLang = /(fr|en)/gi.test(userLang) ? userLang : 'fr';
     translate.use(userLang);
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.selectedCompany = translate.instant("SelectCompany");
-      //this.defaultWHS = { OPTM_WHSE: translate.instant("SelectWarehouse"), BPLid: 0 };
+      this.setDefaultValueOnFields();
     });
     this.commonService.loadConfig();
   }
 
   ngOnInit() {
-    this.selectedCompany = this.translate.instant("SelectCompany");
-    //this.selectedWorkCenter = "";//{ OPTM_WHSE: this.translate.instant("SelectWarehouse"), BPLid: 0 }
-    //this.defaultWHS = { OPTM_WHSE: this.translate.instant("SelectWarehouse"), BPLid: 0 }
+    this.setDefaultValueOnFields();
 
     // Get cookie start
     // if (this.getCookie('cookieEmail') != '' && this.getCookie('cookiePassword') != '') {
@@ -120,14 +117,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // public listItems: Array<string> = [
-  //   'Baseball', 'Basketball', 'Cricket', 'Field Hockey',
-  //   'Football', 'Table Tennis', 'Tennis', 'Volleyball'
-  // ];
-
-
   /**
-   * Function for login
+   * Function for connect
    */
   public async connect() {
     if (this.username == "" || this.password == "") {
@@ -161,21 +152,46 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  /**
+   * Function that is validate fields before login into application.
+   */
   private validateFields(): boolean {
-    if (this.selectedCompany == this.translate.instant("SelectCompany") || this.selectedCompany == '') {
+    if ((document.getElementById("companyId").innerText.trim() == this.translate.instant("SelectCompany")
+      || document.getElementById("companyId").innerText.trim() == '')
+      && (document.getElementById("whseId").innerText.trim() == this.translate.instant("SelectWarehouse") ||
+        document.getElementById("whseId").innerText.trim() == '')) {
+      this.showLoader = false;
+      this.show(this.translate.instant("SelectRequiredFields"));
+      return true;
+    } else if (document.getElementById("companyId").innerText.trim() == this.translate.instant("SelectCompany")
+      || document.getElementById("companyId").innerText.trim() == '') {
       this.showLoader = false;
       this.show(this.translate.instant("SelectCompanyMsg"));
       return true;
-    }
-    if (document.getElementById("whseId").innerText.trim() == this.translate.instant("SelectWarehouse") ||
-      document.getElementById("whseId").innerText.trim() == "") {
+    } else if (document.getElementById("whseId").innerText.trim() == this.translate.instant("SelectWarehouse") ||
+      document.getElementById("whseId").innerText.trim() == '') {
       this.showLoader = false;
-      this.show(this.translate.instant("SelectCompanyMsg"));
+      this.show(this.translate.instant("SelectwarehouseMsg"));
       return true;
+    } else if (document.getElementById("workCenterId").innerText.trim() == this.translate.instant("SelectWorkCenter") ||
+      document.getElementById("workCenterId").innerText.trim() == '') {
+      this.showLoader = false;
+      this.show(this.translate.instant("SelectWorkcenterMsg"));
+      return true;
+    } else if (this.isRequireMachine) {
+      if (document.getElementById("machineId").innerText.trim() == this.translate.instant("SelectRequireMachine") ||
+        document.getElementById("machineId").innerText.trim() == '') {
+        this.showLoader = false;
+        this.show(this.translate.instant("SelectMachineMsg"));
+        return true;
+      }
     }
     return false;
   }
 
+  /**
+   * Function used for check login user
+   */
   private getLicenseData() {
     this.showLoader = true;
     this.loginService.getLicenseData(this.selectedCompany).subscribe(
@@ -250,6 +266,8 @@ export class LoginComponent implements OnInit {
   }
 
   private handleValidateLoginResponse() {
+    this.setDefaultValueOnFields();
+
     this.showLoader = false;
     if (this.userDetails == null || this.userDetails.length < 1) {
       this.show(this.translate.instant("InvalidUn"));
@@ -265,14 +283,13 @@ export class LoginComponent implements OnInit {
     this.getCompanyAndLanguageList();
   }
 
+  /**
+   * Function for fetch company data from server after validate user.
+   */
   public getCompanyAndLanguageList() {
     this.loginService.getCompAndLang().subscribe(
       data => {
         this.companyList = data.Table;
-        // compData.forEach(element => {
-        //   this.companyList.push(element.OPTM_COMPID);
-        // });
-
         if (this.isRememberMe) {
           for (var i = 0; i < this.companyList.length; i++) {
             if (this.getCookie(Constants.CompID) == this.companyList[i].OPTM_COMPID) {
@@ -281,18 +298,16 @@ export class LoginComponent implements OnInit {
               break;
             }
           }
-        } else if (this.companyList.length > 0) {
-          this.selectedCompanyModel = this.companyList[0];
-          this.selectedCompany = this.selectedCompanyModel.OPTM_COMPID;
         }
-        console.log("Selected company: " + this.selectedCompany);
-        this.getWarehouseList();
       },
       error => {
       }
     );
   }
 
+  /**
+   * Function for fetch warehouse data from server on the basis of company.
+   */
   public getWarehouseList() {
     //  if (document.getElementById("companyId") != null) {
     //    this.selectedCompany = document.getElementById("companyId").innerText.trim();
@@ -309,23 +324,22 @@ export class LoginComponent implements OnInit {
               break;
             }
           }
-        } else if (this.warehouseList.length > 0) {
-          this.selectedWhseModel = this.warehouseList[0];
-          this.selectedWhse = this.selectedWhseModel.OPTM_WHSE;
         }
-        console.log("Selected warehouse: " + this.selectedWhse);
-        this.getWorkCenterList();
       },
       error => {
       }
     );
   }
 
+  /**
+   * Function for fetch work center data from server on the basis 
+   * of company and warehouse.
+   */
   public getWorkCenterList() {
-    if (document.getElementById("companyId") != null && document.getElementById("whseId") != null) {
-      this.selectedCompany = document.getElementById("companyId").innerText.trim();
-      this.selectedWhse = document.getElementById("whseId").innerText.trim();
-    }
+    // if (document.getElementById("companyId") != null && document.getElementById("whseId") != null) {
+    //   this.selectedCompany = document.getElementById("companyId").innerText.trim();
+    //   this.selectedWhse = document.getElementById("whseId").innerText.trim();
+    // }
 
     this.loginService.getWorkcenter(this.selectedCompany, this.selectedWhse).subscribe(
       data => {
@@ -338,19 +352,17 @@ export class LoginComponent implements OnInit {
               break;
             }
           }
-        } else if (this.workCenterList.length > 0) {
-          this.selectedWorkCenterModel = this.workCenterList[0];
-          this.selectedWorkCenter = this.selectedWorkCenterModel.OPTM_WORKCENTER;
         }
-
-
-        console.log("Selected workcenter: " + this.selectedWorkCenter);
       },
       error => {
       }
     );
   }
 
+  /**
+   * Function for fetch machine data from server on the basis of 
+   * company, warehouse and work center.
+   */
   public getMachineList() {
     // if (document.getElementById("companyId") != null && document.getElementById("whseId") != null) {
     //   this.selectedCompany = document.getElementById("companyId").innerText.trim();
@@ -369,17 +381,18 @@ export class LoginComponent implements OnInit {
               break;
             }
           }
-        } else if (this.machineList.length > 0) {
-          this.selectedMachineModel = this.machineList[0];
-          this.selectedMachine = this.selectedMachineModel.U_O_EQUP_ID;
         }
-        console.log("Selected machine: " + this.selectedMachine);
       },
       error => {
       }
     );
   }
 
+  /**
+   * Function called when user do check/uncheck.
+   * @param event
+   * @param type 
+   */
   onCheckChange(event: any, type: string) {
     if ('remember' == type) {
       this.isRememberMe = !this.isRememberMe;
@@ -387,6 +400,9 @@ export class LoginComponent implements OnInit {
       this.isRequireMachine = !this.isRequireMachine;
       if (this.isRequireMachine) {
         this.getMachineList();
+      } else {
+        this.selectedMachineModel = { U_O_EQUP_ID: this.translate.instant("SelectRequireMachine") };
+        this.selectedMachine = this.selectedMachineModel.U_O_EQUP_ID;
       }
     }
   }
@@ -395,26 +411,36 @@ export class LoginComponent implements OnInit {
    * Function called on login button clicked.
    */
   login() {
+    if (this.validateFields()) {
+      this.showLoader = false;
+      return;
+    }
     this.getLicenseData();
   }
 
+  /**
+   * 
+   */
   getValidateShiftTime() {
-    this.loginService.validateShiftTime(this.selectedCompany, 
+    this.loginService.validateShiftTime(this.selectedCompany,
       this.selectedCompanyModel.OPTM_EMPID, this.selectedWorkCenter, "").subscribe(
-      data => {
-        
-        console.log("getValidateShiftTime data: " + data);
-      },
-      error => {
-        console.log("getValidateShiftTime error: " + error);
-      }
-    );
+        data => {
+
+          console.log("getValidateShiftTime data: " + data);
+        },
+        error => {
+          console.log("getValidateShiftTime error: " + error);
+        }
+      );
   }
 
+  /**
+   * 
+   */
   getMenuRecord() {
     this.loginService.menuRecord().subscribe(
       data => {
-        
+
         console.log("getMenuRecord data: " + data);
       },
       error => {
@@ -423,10 +449,13 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  /**
+   * 
+   */
   getUserLoginLog() {
     this.loginService.userLoginLog().subscribe(
       data => {
-        
+
         console.log("getUserLoginLog data: " + data);
       },
       error => {
@@ -455,7 +484,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Function for set cookie data
+   * Function for set cookie data.
    * @param cname 
    * @param cvalue 
    * @param exdays 
@@ -465,5 +494,74 @@ export class LoginComponent implements OnInit {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  /**
+   * Function used for reset form fields.
+   * @param form 
+   */
+  reset(form: any) {
+    this.isConnected = false;
+    form.resetForm();
+    this.readOnlyFlag = false;
+    this.setCookie('cookieEmail', "", 365);
+    this.setCookie('cookiePassword', "", 365);
+    this.setCookie('CompID', "", 365);
+    this.setCookie('whseId', "", 365);
+    this.companyList = [];
+    this.warehouseList = [];
+    this.workCenterList = [];
+    this.machineList = [];
+    this.selectedCompanyModel = null;
+    this.selectedWhseModel = null;
+    this.selectedWorkCenterModel = null;
+    this.selectedMachineModel = null;
+
+    this.selectedCompany = "";
+    this.selectedWhse = "";
+    this.selectedWorkCenter = "";
+    this.selectedMachine = "";
+    this.requireMachine = "";
+    this.rememberMe = "";
+  }
+
+  /**
+   * Function used for reset kendo dropdown fields.
+   */
+  setDefaultValueOnFields() {
+    this.selectedCompanyModel = { OPTM_COMPID: this.translate.instant("SelectCompany"), OPTM_EMPID: "0", cmpName: "" };
+    this.selectedCompany = this.selectedCompanyModel.OPTM_COMPID;
+
+    this.selectedWhseModel = { OPTM_WHSE: this.translate.instant("SelectWarehouse"), BPLid: 0 };
+    this.selectedWhse = this.selectedWhseModel.OPTM_WHSE;
+
+    this.selectedWorkCenterModel = { OPTM_WORKCENTER: this.translate.instant("SelectWorkCenter") };
+    this.selectedWorkCenter = this.selectedWorkCenterModel.OPTM_WORKCENTER;
+
+    this.selectedMachineModel = { U_O_EQUP_ID: this.translate.instant("SelectRequireMachine") };
+    this.selectedMachine = this.selectedMachineModel.U_O_EQUP_ID;
+  }
+
+  /**
+   * Function called when user select any item from kendo dropdown list.
+   * 
+   * @param value 
+   * @param fieldType 
+   */
+  public selectionChange(value: any, fieldType: string): void {
+    console.log('selectionChange', value);
+    if ("company" == fieldType) { // executed on company selection.
+      this.selectedCompanyModel = value;
+      this.selectedCompany = this.selectedCompanyModel.OPTM_COMPID;
+      this.getWarehouseList();
+    } else if ("warehouse" == fieldType) { // executed on warehouse selection.
+      this.selectedWhseModel = value;
+      this.selectedWhse = this.selectedWhseModel.OPTM_WHSE;
+      this.getWorkCenterList();
+    } else if ("workcenter" == fieldType) { // executed on workcenter selection.
+      this.selectedWorkCenterModel = value;
+      this.selectedWorkCenter = this.selectedWorkCenterModel.OPTM_WORKCENTER;
+      this.getMachineList();
+    }
   }
 }

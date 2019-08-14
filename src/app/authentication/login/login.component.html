@@ -12,7 +12,7 @@
                 </div>
               </div>
             </div>
-            <form #signInForm="ngForm">
+            <form #loginForm="ngForm">
               <input type="text" style="display:none" autocomplete="off">
               <input type="password" style="display:none" autocomplete="off">
               <div class="card-body">
@@ -37,7 +37,8 @@
                 <ng-container *ngIf="isConnected">
                   <div class="form-group mb-2">
                     <label for="company" class="mb-0">{{'Company'|translate}} <span class="text-danger">*</span></label>
-                    <kendo-dropdownlist class="w-100"  [data]="companyList" 
+                    <kendo-dropdownlist class="w-100" [data]="companyList" 
+                    (selectionChange)="selectionChange($event, 'company')"
                     (click)="getCompanyAndLanguageList()" 
                     textField="OPTM_COMPID"
                     valueField="OPTM_COMPID"
@@ -49,6 +50,7 @@
                   <div class="form-group mb-2">
                     <label for="warehouse" class="mb-0">{{'Warehouse'|translate}} <span class="text-danger">*</span></label>
                     <kendo-dropdownlist class="w-100" [data]="warehouseList"
+                    (selectionChange)="selectionChange($event, 'warehouse')"
                     (click)="getWarehouseList()" 
                     textField="OPTM_WHSE"
                     valueField="OPTM_WHSE"
@@ -60,6 +62,7 @@
                   <div class="form-group mb-2">
                     <label for="workCenter" class="mb-0">{{'WareCenter'|translate}} <span class="text-danger">*</span></label>
                     <kendo-dropdownlist class="w-100" [data]="workCenterList" 
+                    (selectionChange)="selectionChange($event, 'workcenter')"
                     (click)="getWorkCenterList()" 
                     textField="OPTM_WORKCENTER" 
                     valueField="OPTM_WORKCENTER"
@@ -85,7 +88,7 @@
                     valueField="U_O_EQUP_ID"
                     id="machineId"
                     name="machineId" 
-                    [(ngModel)]="selectedMachine" 
+                    [(ngModel)]="selectedMachineModel" 
                     >
                     </kendo-dropdownlist>
                   </div>
@@ -103,7 +106,7 @@
                       <div class="col-md-12 text-center" fxLayout="row">
                         <button type="button" class="btn btn-primary btn-lg rounded-0" fxFlex="100" (click)="login()">{{'Login'|translate}}</button>
                         <!-- <span class="px-1"></span> -->
-                        <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100">{{'Reset'|translate}}</button>
+                        <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100" (click)="reset(loginForm)">{{'Reset'|translate}}</button>
                       </div>
                     </div>
                   </div>
