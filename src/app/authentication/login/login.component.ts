@@ -110,11 +110,13 @@ export class LoginComponent implements OnInit {
   public show(message: string): void {
     this.notificationService.show({
       content: message,
+      hideAfter: 1500,
       cssClass: 'button-notification',
       animation: { type: 'slide', duration: 400 },
       position: { horizontal: 'right', vertical: 'top' },
-      type: { style: 'success', icon: true },
-      closable: true
+      // type: { style: 'success', icon: true },
+      type: { style: 'success', icon: false },
+      closable: false
     });
   }
 
