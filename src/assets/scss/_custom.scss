@@ -9,6 +9,10 @@ html, body{
   height: auto;
   fill: #fff;
 }
+//Extra Classes
+.max-width-initial{
+  max-width:initial !important;
+}
 //Layout
 .compact-layout {
   & app-header .navbar-inner, & .layout-mode{

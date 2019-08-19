@@ -1,31 +1,70 @@
+@import "./../../../assets/scss/themes/default";
+
 .login-block {
-    padding: 30px 0;
+    padding: 30px 100px;
     margin: 0 auto;
     background: url("~src/assets/images/auth/bg.jpg") no-repeat;
     background-size: cover;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
     background-attachment: fixed;
     background-position: center;
 }
 .login-block .auth-box {
-    margin: 20px auto 0;
-    max-width: 450px;
-    color:#fff;
+    margin:auto;
+    // max-width: 450px;
+    // color:#fff;
+    height: 100%;
     overflow: hidden;
     font-size: 12px;
+    max-height: 650px;
     // background: linear-gradient(120deg, rgba(0, 228, 208, 0.85), rgba(89, 131, 232, 0.85)) !important;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
+    & .card-block {
+        display: flex;
+    }
     & .card-header{
         background: rgba(255,255,255,0.3);
     }
     & .card-body{
-        padding:20px 50px;
+        padding: 20px 20px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: #fff;
+        border-radius: 4px;
     }
     & .text-danger{
         color: #ff0000 !important;
+    }
+}
+.login-block .left-block{
+    position: relative;
+    flex: 1 100%;
+}
+.login-block .left-block .left-block-bg{
+    background: url("~src/assets/images/auth/bg.jpg") no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    background-position: left center;
+    flex: 1 1 100%;
+    width: 100%;
+    height: 100%;
+}
+.login-block .right-block{
+    position: relative;
+    display: flex;
+    flex: 1 1 100%;
+    max-width: 450px;
+    & form{
+        background: $primay-gradiant;
+        padding: 60px;
+        min-height: 390px;
+        flex: 1 1 100%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
     }
 }
 // .card-block {

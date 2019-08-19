@@ -1,118 +1,123 @@
-<section class="login-block">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="login-logo mx-auto text-center"><img src="./../../../assets/images/logo/OptiProERP.png" title="OptiPro-ERP" /></div>
-        <div class="auth-box card">
-          <div class="card-block">
-            <div class="card-header">
+<section class="login-block" ngStyle.xs="padding: 30px 0" ngStyle.sm="padding: 30px 50px">
+  <div class="container-fluid" fxFlex="100">
+    <div class="row max-width-initial" fxFlex="100">
+      <div class="col-12" fxFlex="100">
+        
+        <div class="auth-box card" fxFlex="100">
+          <div class="card-block" fxFlex="100">
+            <!-- <div class="card-header">
               <div class="row m-b-20">
                 <div class="col-md-12">
                   <h4 class="text-left m-0">Login</h4>
                 </div>
               </div>
+            </div> -->
+            <div class="left-block" fxHide.sm fxHide.xs>
+              <div class="left-block-bg"></div>
             </div>
-            <form #loginForm="ngForm">
-              <input type="text" style="display:none" autocomplete="off">
-              <input type="password" style="display:none" autocomplete="off">
-              <div class="card-body">
-                <div class="form-group mb-2">
-                  <label for="user" class="mb-0">{{'Username'|translate}} <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="user" name="user" aria-describedby="User" 
-                  required [(ngModel)]="username" #uname = ngModel
-                  placeholder="{{'EnterUsername'|translate}}" autocomplete="off" [readonly]=readOnlyFlag>
-                </div>
-                <div class="form-group mb-2">
-                  <label for="user" class="mb-0">{{'Password'|translate}} <span class="text-danger">*</span></label>
-                  <input type="password" id="password" name="password" class="form-control" 
-                  required [(ngModel)]="password" #pwd = ngModel
-                  placeholder="{{'EnterPassword'|translate}}" autocomplete="off" [readonly]=readOnlyFlag>
-                </div>
-                <div class="row my-4" *ngIf="!isConnected">
-                  <div class="col-md-12 text-center">
-                    <button type="button" class="btn btn-primary btn-block btn-md"
-                    (click)="connect()">{{'Connect'|translate}}</button>
-                  </div>
-                </div>
-                <ng-container *ngIf="isConnected">
+            <div class="right-block" ngStyle.sm="max-width:100%" ngStyle.xs="max-width:100%">
+              
+              <form #loginForm="ngForm" ngStyle.xs="padding:30px;">
+                <div class="card-body">
+                  <div class="login-logo mx-auto text-center mb-4"><img src="./../../../assets/images/logo/OptiProERP.png" title="OptiPro-ERP" /></div>
                   <div class="form-group mb-2">
-                    <label for="company" class="mb-0">{{'Company'|translate}} <span class="text-danger">*</span></label>
-                    <kendo-dropdownlist class="w-100" [data]="companyList" 
-                    (selectionChange)="selectionChange($event, 'company')"
-                    (click)="getCompanyAndLanguageList()" 
-                    textField="OPTM_COMPID"
-                    valueField="OPTM_COMPID"
-                    id="companyId"
-                    name="companyId"
-                    [(ngModel)]="selectedCompanyModel"></kendo-dropdownlist>
-
+                    <label for="user" class="mb-0">{{'Username'|translate}} <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="user" name="user" aria-describedby="User" 
+                    required [(ngModel)]="username" #uname = ngModel
+                    placeholder="{{'EnterUsername'|translate}}" autocomplete="off" [readonly]=readOnlyFlag>
                   </div>
                   <div class="form-group mb-2">
-                    <label for="warehouse" class="mb-0">{{'Warehouse'|translate}} <span class="text-danger">*</span></label>
-                    <kendo-dropdownlist class="w-100" [data]="warehouseList"
-                    (selectionChange)="selectionChange($event, 'warehouse')"
-                    (click)="getWarehouseList()" 
-                    textField="OPTM_WHSE"
-                    valueField="OPTM_WHSE"
-                    id="whseId"
-                    name = "whseId"
-                    [(ngModel)]="selectedWhseModel"
-                    ></kendo-dropdownlist>
+                    <label for="user" class="mb-0">{{'Password'|translate}} <span class="text-danger">*</span></label>
+                    <input type="password" id="password" name="password" class="form-control" 
+                    required [(ngModel)]="password" #pwd = ngModel
+                    placeholder="{{'EnterPassword'|translate}}" autocomplete="off" [readonly]=readOnlyFlag>
                   </div>
-                  <div class="form-group mb-2">
-                    <label for="workCenter" class="mb-0">{{'WareCenter'|translate}} <span class="text-danger">*</span></label>
-                    <kendo-dropdownlist class="w-100" [data]="workCenterList" 
-                    (selectionChange)="selectionChange($event, 'workcenter')"
-                    (click)="getWorkCenterList()" 
-                    textField="OPTM_WORKCENTER" 
-                    valueField="OPTM_WORKCENTER"
-                    id = "workCenterId" 
-                    name = "workCenterId"
-                    [(ngModel)] = "selectedWorkCenterModel"
-                    ></kendo-dropdownlist>
-                  </div>
-                  <div class="row form-group mb-0">
-                    <div class="col-12 d-flex align-items-center my-2">
-                      <label class="custom-checkbox mb-0">
-                        <input type="checkbox" value="" [(ngModel)]="requireMachine" (change)="onCheckChange($event, 'machine')">
-                        <span class="checkbox"></span>
-                        <span class="text-inverse">{{'RequireMachine'|translate}}</span>
-                      </label>
+                  <div class="row my-4" *ngIf="!isConnected">
+                    <div class="col-md-12 text-center">
+                      <button type="button" class="btn btn-primary btn-block btn-md"
+                      (click)="connect()">{{'Connect'|translate}}</button>
                     </div>
                   </div>
-                  <div class="form-group mb-2" >
-                    <label for="machine" class="mb-0">{{'Machine'|translate}} <span class="text-danger">*</span></label>
-                    <kendo-dropdownlist class="w-100" [data]="machineList" [disabled]="!isRequireMachine"
-                    (click)="getMachineList()"
-                    textField="U_O_EQUP_ID"
-                    valueField="U_O_EQUP_ID"
-                    id="machineId"
-                    name="machineId" 
-                    [(ngModel)]="selectedMachineModel" 
-                    >
-                    </kendo-dropdownlist>
-                  </div>
-                  <div class="row form-group mb-0">
-                    <div class="col-12 d-flex align-items-center my-2">
-                      <label class="custom-checkbox mb-0">
-                        <input type="checkbox" value="" [(ngModel)]="rememberMe" (change)="onCheckChange($event, 'remember')">
-                        <span class="checkbox"></span>
-                        <span class="text-inverse">{{'RememberMe'|translate}}</span>
-                      </label>
+                  <ng-container *ngIf="isConnected">
+                    <div class="form-group mb-2">
+                      <label for="company" class="mb-0">{{'Company'|translate}} <span class="text-danger">*</span></label>
+                      <kendo-dropdownlist class="w-100" [data]="companyList" 
+                      (selectionChange)="selectionChange($event, 'company')"
+                      (click)="getCompanyAndLanguageList()" 
+                      textField="OPTM_COMPID"
+                      valueField="OPTM_COMPID"
+                      id="companyId"
+                      name="companyId"
+                      [(ngModel)]="selectedCompanyModel"></kendo-dropdownlist>
+  
                     </div>
-                  </div>
-                  <div class="card-footer border-0 p-0 rounded-bottom">
-                    <div class="row mt-0">
-                      <div class="col-md-12 text-center" fxLayout="row">
-                        <button type="button" class="btn btn-primary btn-lg rounded-0" fxFlex="100" (click)="login()">{{'Login'|translate}}</button>
-                        <!-- <span class="px-1"></span> -->
-                        <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100" (click)="reset(loginForm)">{{'Reset'|translate}}</button>
+                    <div class="form-group mb-2">
+                      <label for="warehouse" class="mb-0">{{'Warehouse'|translate}} <span class="text-danger">*</span></label>
+                      <kendo-dropdownlist class="w-100" [data]="warehouseList"
+                      (selectionChange)="selectionChange($event, 'warehouse')"
+                      (click)="getWarehouseList()" 
+                      textField="OPTM_WHSE"
+                      valueField="OPTM_WHSE"
+                      id="whseId"
+                      name = "whseId"
+                      [(ngModel)]="selectedWhseModel"
+                      ></kendo-dropdownlist>
+                    </div>
+                    <div class="form-group mb-2">
+                      <label for="workCenter" class="mb-0">{{'WareCenter'|translate}} <span class="text-danger">*</span></label>
+                      <kendo-dropdownlist class="w-100" [data]="workCenterList" 
+                      (selectionChange)="selectionChange($event, 'workcenter')"
+                      (click)="getWorkCenterList()" 
+                      textField="OPTM_WORKCENTER" 
+                      valueField="OPTM_WORKCENTER"
+                      id = "workCenterId" 
+                      name = "workCenterId"
+                      [(ngModel)] = "selectedWorkCenterModel"
+                      ></kendo-dropdownlist>
+                    </div>
+                    <div class="row form-group mb-0">
+                      <div class="col-12 d-flex align-items-center my-2">
+                        <label class="custom-checkbox mb-0">
+                          <input type="checkbox" value="" [(ngModel)]="requireMachine" (change)="onCheckChange($event, 'machine')">
+                          <span class="checkbox"></span>
+                          <span class="text-inverse">{{'RequireMachine'|translate}}</span>
+                        </label>
                       </div>
                     </div>
-                  </div>
-                </ng-container>
-              </div>
-            </form>
+                    <div class="form-group mb-2" >
+                      <label for="machine" class="mb-0">{{'Machine'|translate}} <span class="text-danger">*</span></label>
+                      <kendo-dropdownlist class="w-100" [data]="machineList" [disabled]="!isRequireMachine"
+                      (click)="getMachineList()"
+                      textField="U_O_EQUP_ID"
+                      valueField="U_O_EQUP_ID"
+                      id="machineId"
+                      name="machineId" 
+                      [(ngModel)]="selectedMachineModel" 
+                      >
+                      </kendo-dropdownlist>
+                    </div>
+                    <div class="row form-group mb-0">
+                      <div class="col-12 d-flex align-items-center my-2">
+                        <label class="custom-checkbox mb-0">
+                          <input type="checkbox" value="" [(ngModel)]="rememberMe" (change)="onCheckChange($event, 'remember')">
+                          <span class="checkbox"></span>
+                          <span class="text-inverse">{{'RememberMe'|translate}}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="card-footer border-0 p-0 rounded-bottom">
+                      <div class="row mt-0">
+                        <div class="col-md-12 text-center" fxLayout="row">
+                          <button type="button" class="btn btn-primary btn-lg rounded-0" fxFlex="100" (click)="login()">{{'Login'|translate}}</button>
+                          <!-- <span class="px-1"></span> -->
+                          <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100" (click)="reset(loginForm)">{{'Reset'|translate}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
