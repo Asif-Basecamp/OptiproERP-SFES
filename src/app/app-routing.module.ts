@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   { path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),    
-    data: { showHeader: true, showSidebar: false, showFooter:false, compactLayout:true  }
+    data: { showHeader: true, showSidebar: false, showFooter:false, compactLayout:false  }
   },
 ];
 

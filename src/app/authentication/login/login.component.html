@@ -1,4 +1,4 @@
-<section class="login-block" ngStyle.xs="padding: 30px 0" ngStyle.sm="padding: 30px 50px">
+<section class="login-block" ngStyle.xs="padding: 30px 0">
   <div class="container-fluid" fxFlex="100">
     <div class="row max-width-initial" fxFlex="100">
       <div class="col-12" fxFlex="100">
@@ -105,12 +105,12 @@
                         </label>
                       </div>
                     </div>
-                    <div class="card-footer border-0 p-0 rounded-bottom">
-                      <div class="row mt-0">
+                    <div class="card-footer border-0 p-0">
+                      <div class="row mt-2">
                         <div class="col-md-12 text-center" fxLayout="row">
-                          <button type="button" class="btn btn-primary btn-lg rounded-0" fxFlex="100" (click)="login()">{{'Login'|translate}}</button>
-                          <!-- <span class="px-1"></span> -->
-                          <button type="button" class="btn btn-secondary btn-lg rounded-0" fxFlex="100" (click)="reset(loginForm)">{{'Reset'|translate}}</button>
+                          <button type="button" class="btn btn-primary btn-md" fxFlex="100" (click)="login()">{{'Login'|translate}}</button>
+                          <span class="px-1"></span>
+                          <button type="button" class="btn btn-secondary btn-md" fxFlex="100" (click)="reset(loginForm)">{{'Reset'|translate}}</button>
                         </div>
                       </div>
                     </div>

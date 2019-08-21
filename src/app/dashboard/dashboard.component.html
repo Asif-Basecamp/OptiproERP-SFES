@@ -1,70 +1,137 @@
-<div class="container-fluid mt-4" fxFlex="100%">
+<div class="container-fluid mt-3" fxFlex="100%">
   <div class="row" fxFlex>
     <div class="col-sm-12 col-12" fxFlex="100%">
       <div class="layout-mode" fxFlex fxLayout="column">
-        <div class="card mb-3">
+        <!-- <div class="card mb-3">
           <div class="card-body pt-3 pb-4">
-            <form>
-              <div class="row">
-                <div class="col-sm-4 mb-sm-0 mb-1">
-                  <label class="mb-0" for="task">Task</label>
-                  <div class="d-flex align-items-center">
-                    <div class="input-group">
-                      <input type="text" class="form-control form-control-sm" id="task">
-                      <div class="input-group-append">
-                        <button class="btn btn-primary btn-sm btn-icon" type="button">
-                            <svg viewBox="0 0 73.168 73.168" class="icon">
-                                <use xlink:href="#menu-alt"></use>
-                            </svg>
-                        </button>
+            
+          </div>
+        </div> -->
+        <div class="card mb-3 dashboard-main-card" fxFlex fxLayout="row">
+          <div class="left-part" fxFlex="100" fxHide.sm fxHide.xs>
+            <div class="left-part-bg"></div>
+          </div>
+          <div class="right-part w-100" ngStyle.sm="max-width:100%" ngStyle.xs="max-width:100%" fxFlex.lg="700px" fxFlex.md="800px" fxFlex.sm="100%">
+            <div class="card-body p-0" fxFlex fxLayout="column">
+              <form class="mb-1 p-3">
+                <div class="row">
+                  <div class="col-sm-4 mb-sm-0 mb-1">
+                    <label class="mb-0" for="task">Task</label>
+                    <div class="d-flex align-items-center">
+                      <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" id="task">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary btn-sm btn-icon" type="button" (click)="taskListOpen()">
+                              <svg viewBox="0 0 73.168 73.168" class="icon">
+                                  <use xlink:href="#menu-alt"></use>
+                              </svg>
+                          </button>
+                        </div>
                       </div>
+                      <button class="btn btn-primary btn-sm ml-1 btn-icon" type="button">
+                          <svg viewBox="0 0 512 512" class="icon">
+                              <use xlink:href="#qr"></use>
+                          </svg>
+                      </button>
                     </div>
-                    <button class="btn btn-primary btn-sm ml-1 btn-icon" type="button">
-                        <svg viewBox="0 0 512 512" class="icon">
-                            <use xlink:href="#qr"></use>
-                        </svg>
-                    </button>
+                  </div>
+                  <div class="col-sm-4 mb-sm-0 mb-1">
+                    <label class="mb-0" for="task">WO#</label>
+                    <input type="text" class="form-control form-control-sm" id="wo">
+                  </div>
+                  <div class="col-sm-4 mb-sm-0 mb-1">
+                    <label class="mb-0" for="workCenter">Work Center</label>
+                    <input type="text" class="form-control form-control-sm" id="workCenter">
                   </div>
                 </div>
-                <div class="col-sm-4 mb-sm-0 mb-1">
-                  <label class="mb-0" for="task">WO#</label>
-                  <input type="text" class="form-control form-control-sm" id="wo">
-                </div>
-                <div class="col-sm-4 mb-sm-0 mb-1">
-                  <label class="mb-0" for="workCenter">Work Center</label>
-                  <input type="text" class="form-control form-control-sm" id="workCenter">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="card mb-3" fxFlex>
-          <div class="card-body" fxFlex>
-            <kendo-tabstrip fxFlex>
-              <kendo-tabstrip-tab [title]="'Details'" [selected]="true">
-                <ng-template kendoTabContent>
-                  <app-details ></app-details>
-                </ng-template>
-              </kendo-tabstrip-tab>
-              <kendo-tabstrip-tab [title]="'Time Entry'">
-                <ng-template kendoTabContent>
-                  <app-time-entry></app-time-entry>
-                </ng-template>
-              </kendo-tabstrip-tab>
-              <kendo-tabstrip-tab [title]="'Resources'">
-                <ng-template kendoTabContent>
-                  <app-resources></app-resources>
-                </ng-template>
-              </kendo-tabstrip-tab>
-              <kendo-tabstrip-tab [title]="'Attachments'">
-                <ng-template kendoTabContent>
-                  <app-attachments></app-attachments>
-                </ng-template>
-              </kendo-tabstrip-tab>
-            </kendo-tabstrip>
+              </form>
+  
+              <kendo-tabstrip fxFlex class="border-0">                
+                <kendo-tabstrip-tab [selected]="true">
+                  <ng-template kendoTabTitle>
+                    Time Entry
+                  </ng-template>
+                  <ng-template kendoTabContent>
+                    <app-time-entry></app-time-entry>
+                  </ng-template>
+                </kendo-tabstrip-tab>
+                <kendo-tabstrip-tab>
+                  <ng-template kendoTabTitle>
+                    Details
+                  </ng-template>
+                  <ng-template kendoTabContent>
+                    <app-details ></app-details>
+                  </ng-template>
+                </kendo-tabstrip-tab>
+                <kendo-tabstrip-tab>
+                  <ng-template kendoTabTitle>
+                    Resources
+                  </ng-template>
+                  <ng-template kendoTabContent>
+                    <app-resources></app-resources>
+                  </ng-template>
+                </kendo-tabstrip-tab>
+                <kendo-tabstrip-tab>
+                  <ng-template kendoTabTitle>
+                    Attachments
+                  </ng-template>
+                  <ng-template kendoTabContent>
+                    <app-attachments></app-attachments>
+                  </ng-template>
+                </kendo-tabstrip-tab>
+              </kendo-tabstrip>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="window-wrapper task-list" id="task-list" *ngIf="windowOpened">
+  <div class="window-inner">
+      <kendo-window [minWidth]="200" (stateChange)="windowStateChange()" [(state)]="windowState" [minHeight]="125" *ngIf="windowOpened" (close)="close()">
+        <kendo-window-titlebar>
+          <span class="window-title">Task List</span>
+          <div class="window-option">
+            <button class="maximum" kendoWindowMaximizeAction></button>
+            <button class="restore" kendoWindowRestoreAction></button>
+            <button class="close" kendoWindowCloseAction></button>
+          </div>
+        </kendo-window-titlebar>
+        <!-- <p>The state of the Window is <b>{{windowState}}</b></p> -->
+        <!-- Kendo Grid Start -->
+        <kendo-grid [data]="gridData" [height]="410">
+          <kendo-grid-column media="(max-width: 450px)" title="Items">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                  <!-- template for mobile -->
+                  <dl>
+                      <dt>Product ID</dt>
+                      <dd>{{ dataItem.ProductID}}</dd>
+
+                      <dt>Product Name</dt>
+                      <dd>{{ dataItem.ProductName }}</dd>
+
+                      <dt>Category Name</dt>
+                      <dd>{{ dataItem.Category.CategoryName }}</dd>
+                  </dl>
+              </ng-template>
+          </kendo-grid-column>
+          
+          <!-- columns for mid-size devices -->
+          <kendo-grid-column media="(min-width: 768px)" field="ProductID" title="ID" width="40">
+          </kendo-grid-column>
+          <kendo-grid-column media="(min-width: 768px)" field="ProductName" title="Name" width="250">
+          </kendo-grid-column>
+          <kendo-grid-column media="(min-width: 768px)" field="Category.CategoryName" title="Category">
+          </kendo-grid-column>
+          <kendo-grid-column media="(min-width: 768px)" field="UnitPrice" title="Price" width="80">
+          </kendo-grid-column>
+          <kendo-grid-column media="(min-width: 768px)" field="UnitsInStock" title="In stock" width="80">
+          </kendo-grid-column>
+        </kendo-grid>
+        <!-- Kendo Grid End -->
+
+      </kendo-window>
   </div>
 </div>

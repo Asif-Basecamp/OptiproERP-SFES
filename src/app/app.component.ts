@@ -40,9 +40,11 @@ export class AppComponent implements OnInit {
         }
         if(this.showHeader){
           document.body.classList.remove("no-header");
+          document.body.classList.add("with-header");
           console.log('Header is : ' + this.showHeader);
         }else{
           document.body.classList.add("no-header");
+          document.body.classList.remove("with-header");
           console.log('Header is : ' + this.showHeader);
         }
       }

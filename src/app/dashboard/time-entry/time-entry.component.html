@@ -1,1 +1,69 @@
-<p>time-entry works!</p>
+<form fxFlex fxLayout="column">
+    <div class="form-content" fxFlex="100%">
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">Start Date</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">End Date</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">Qty Produced</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">Qty Accepted</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">Qty Rejected</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div> 
+            <div class="form-group col-md-3 mb-2 pr-md-0">  
+                <label for="" class="mb-0">NC Qty</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div> 
+            <div class="form-group col-md-3 mb-2 d-flex align-items-end mt-sm-3">
+                <input type="text" class="form-control-sm form-control" id="" placeholder="Batch/Serial">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">Interrupt Date</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0 w-100">Interrupt Reason</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>            
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0 w-100">Remarks</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label for="" class="mb-0">Abort Reason</label>
+                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-action-bar justify-content-between d-flex">
+        <span>
+            <button type="button" class="btn btn-primary mr-1 btn-sm">Start/Resume</button>
+            <button type="button" class="btn btn-success mr-1 btn-sm">Finish</button>
+        </span>
+        <span>
+            <button type="button" class="btn btn-danger mr-1 btn-sm">Interrupt</button>
+            <button type="button" class="btn btn-danger mr-1 btn-sm">Abort</button>
+            <button type="button" class="btn btn-success btn-sm">Submit</button>
+        </span>
+    </div>
+</form>

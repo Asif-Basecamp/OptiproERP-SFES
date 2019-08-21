@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { products } from 'src/app/dummyData/taskList';
 
 @Component({
   selector: 'app-attachments',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./attachments.component.scss']
 })
 export class AttachmentsComponent implements OnInit {
-
+  public gridData: any[] = products;
+  
   constructor() { }
 
   ngOnInit() {

@@ -7,12 +7,11 @@
 
 .content{
     background-color: #f2f8f9;
-    max-height: calc(100vh - 40px) !important;
+    max-height: 100vh !important;
     overflow: auto;
     display: flex;
-    flex: 1 1 100%;    
-}
-input:-internal-autofill-selected {
-    background-color: #fff !important;
-    background-image: none !important;
+    flex: 1 1 100%;  
+    background: url("~src/assets/images/auth/bg.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;  
 }

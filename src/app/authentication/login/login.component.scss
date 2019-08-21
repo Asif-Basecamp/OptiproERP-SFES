@@ -1,48 +1,48 @@
 @import "./../../../assets/scss/themes/default";
 
 .login-block {
-    padding: 30px 100px;
+    padding: 30px;
     margin: 0 auto;
     background: url("~src/assets/images/auth/bg.jpg") no-repeat;
     background-size: cover;
     min-height: 100vh;
-    background-attachment: fixed;
     background-position: center;
-}
-.login-block .auth-box {
+  }
+  .login-block .auth-box {
     margin:auto;
     // max-width: 450px;
     // color:#fff;
     height: 100%;
     overflow: hidden;
     font-size: 12px;
-    max-height: 650px;
+    max-height: 800px;
     // background: linear-gradient(120deg, rgba(0, 228, 208, 0.85), rgba(89, 131, 232, 0.85)) !important;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
-    & .card-block {
-        display: flex;
-    }
-    & .card-header{
-        background: rgba(255,255,255,0.3);
-    }
-    & .card-body{
-        padding: 20px 20px 30px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background: #fff;
-        border-radius: 4px;
-    }
-    & .text-danger{
-        color: #ff0000 !important;
-    }
-}
-.login-block .left-block{
+      & .card-block {
+          display: flex;
+      }
+      & .card-header{
+          background: rgba(255,255,255,0.3);
+      }
+      & .card-body{
+          padding: 20px 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          background: #fff;
+          border-radius: 4px;
+          max-width: 320px;
+      }
+      & .text-danger{
+          color: #ff0000 !important;
+      }
+  }
+  .login-block .left-block{
     position: relative;
     flex: 1 100%;
-}
-.login-block .left-block .left-block-bg{
+  }
+  .login-block .left-block .left-block-bg{
     background: url("~src/assets/images/auth/bg.jpg") no-repeat;
     background-size: cover;
     display: flex;
@@ -51,12 +51,12 @@
     flex: 1 1 100%;
     width: 100%;
     height: 100%;
-}
-.login-block .right-block{
+  }
+  .login-block .right-block{
     position: relative;
     display: flex;
     flex: 1 1 100%;
-    max-width: 450px;
+    max-width: 650px;
     & form{
         background: $primay-gradiant;
         padding: 60px;
@@ -66,6 +66,4 @@
         justify-content: center;
         display: flex;
     }
-}
-// .card-block {
-// }
+  }

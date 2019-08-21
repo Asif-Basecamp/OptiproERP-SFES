@@ -1,1 +1,30 @@
-<p>resources works!</p>
+ <!-- Kendo Grid Start -->
+ <kendo-grid [data]="gridData" [height]="410">
+        <kendo-grid-column media="(max-width: 450px)" title="Items">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                <!-- template for mobile -->
+                <dl>
+                    <dt>Product ID</dt>
+                    <dd>{{ dataItem.ProductID}}</dd>
+
+                    <dt>Product Name</dt>
+                    <dd>{{ dataItem.ProductName }}</dd>
+
+                    <dt>Category Name</dt>
+                    <dd>{{ dataItem.Category.CategoryName }}</dd>
+                </dl>
+            </ng-template>
+        </kendo-grid-column>
+        
+        <!-- columns for mid-size devices -->
+        <kendo-grid-column media="(min-width: 768px)" field="ProductID" title="ID" width="40">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="ProductName" title="Name" width="250">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="Category.CategoryName" title="Category">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="UnitPrice" title="Price" width="80">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="UnitsInStock" title="In stock" width="80">
+        </kendo-grid-column>
+      </kendo-grid>
