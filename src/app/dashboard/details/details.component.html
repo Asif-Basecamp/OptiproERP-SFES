@@ -2,37 +2,51 @@
     <div class="form-content" fxFlex="100%">
         <div class="row">
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Order Start Date Time</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0">{{'OrderStartDateTime'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="orderStartDateTime" name="orderStartDateTime" 
+                [(ngModel)]="selectedTaskModel.U_O_STARTDATE" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Order Due Date Time</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0">{{'OrderDueDateTime'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="orderDueDateTime" name="orderDueDateTime" 
+                [(ngModel)]="selectedTaskModel.U_O_ENDDATE" placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Opn#</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0">{{'Operation'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="operation" name="operation" 
+                [(ngModel)]="selectedTaskModel.OPTM_FROMOPERNO" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2 d-flex align-items-end">
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <input type="text" class="form-control-sm form-control" 
+                id="operation1" name="operation1" 
+                [(ngModel)]="selectedTaskModel.OPTM_FROMOPRCODE" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Open Qty on Opn</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0">{{'OpenQtyOnOpn'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="openQtyOnOpn" name="openQtyOnOpn" 
+                [(ngModel)]="selectedTaskModel.OPTM_REMAININGQTY" placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Item Code</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0">{{'ItemCode'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="itemCode" name="itemCode" 
+                [(ngModel)]="selectedTaskModel.OPTM_FGCODE" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2 d-flex align-items-end">
-                <input type="text" class="form-control-sm form-control" id="" placeholder="Mobile ST">
+                <input type="text" class="form-control-sm form-control" 
+                id="itemCode1" name="itemCode1" 
+                [(ngModel)]="selectedTaskModel.Description" placeholder="Mobile ST">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Generate</label>
+                <label for="" class="mb-0 w-100">{{'Generate'|translate}}</label>
                 <button class="btn btn-outline-secondary btn-sm btn-icon" type="button">
                     <svg viewBox="0 0 512 512" class="icon">
                         <use xlink:href="#qr"></use>
@@ -42,43 +56,54 @@
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Opn Start %</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0">{{'OperationStartPerc'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="operationStartPerc" name="operationStartPerc" 
+                [(ngModel)]="selectedTaskModel.FormattedOprStartPer" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Opn End %</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0 w-100">{{'OperationEndPerc'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" id="operationStartPerc" name="operationStartPerc" 
+                [(ngModel)]="selectedTaskModel.FormattedOprEndPer" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Opn Standard Time</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">Order Qty</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
-            </div>
-            <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Assigned Qty</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
-            </div>
-            <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Assigned Time</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <label for="" class="mb-0 w-100">{{'OpnStandardTime'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="opnStandardTime" name="opnStandardTime" 
+                [(ngModel)]="selectedTaskModel.FormattedStdTime" placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0">(Break+Down)Time</label>
+                <label for="" class="mb-0">{{'OrderQty'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="orderQty" name="orderQty" 
+                [(ngModel)]="selectedTaskModel.OPTM_QTYTOPROD" placeholder="">
+            </div>
+            <div class="form-group col-md-4 mb-2">
+                <label for="" class="mb-0 w-100">{{'AssignedQty'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="assignedQty" name="assignedQty" 
+                [(ngModel)]="selectedTaskModel.AssignedQty" placeholder="">
+            </div>
+            <div class="form-group col-md-4 mb-2">
+                <label for="" class="mb-0 w-100">{{'AssignedTime'|translate}}</label>
+                <input type="text" class="form-control-sm form-control" 
+                id="assignedTime" name="assignedTime" 
+                [(ngModel)]="selectedTaskModel.FormattedAssiTime" placeholder="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4 mb-2">
+                <label for="" class="mb-0">{{'BreakDownTime'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" id="" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Work Time</label>
+                <label for="" class="mb-0 w-100">{{'WorkTime'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" id="" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
-                <label for="" class="mb-0 w-100">Reprint Labels</label>
+                <label for="" class="mb-0 w-100">{{'ReprintLabels'|translate}}</label>
                 <button class="btn btn-outline-secondary btn-sm btn-icon" type="button">
                     <svg viewBox="0 0 512 512" class="icon">
                         <use xlink:href="#qr"></use>

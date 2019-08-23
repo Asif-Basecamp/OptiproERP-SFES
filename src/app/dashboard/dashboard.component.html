@@ -11,48 +11,53 @@
           <div class="left-part" fxFlex="100" fxHide.sm fxHide.xs>
             <div class="left-part-bg"></div>
           </div>
-          <div class="right-part w-100" ngStyle.sm="max-width:100%" ngStyle.xs="max-width:100%" fxFlex.lg="700px" fxFlex.md="800px" fxFlex.sm="100%">
+          <div class="right-part w-100" ngStyle.sm="max-width:100%" ngStyle.xs="max-width:100%" fxFlex.lg="700px"
+            fxFlex.md="800px" fxFlex.sm="100%">
             <div class="card-body p-0" fxFlex fxLayout="column">
               <form class="mb-1 p-3">
                 <div class="row">
                   <div class="col-sm-4 mb-sm-0 mb-1">
-                    <label class="mb-0" for="task">Task</label>
+                    <label class="mb-0" for="task">{{'Task'|translate}}</label>
                     <div class="d-flex align-items-center">
                       <div class="input-group">
-                        <input type="text" class="form-control form-control-sm" id="task">
+                        <input type="text" class="form-control form-control-sm" id="taskId" name="taskId"
+                        [(ngModel)]="selectedTaskModel.TaskId">
                         <div class="input-group-append">
                           <button class="btn btn-primary btn-sm btn-icon" type="button" (click)="taskListOpen()">
-                              <svg viewBox="0 0 73.168 73.168" class="icon">
-                                  <use xlink:href="#menu-alt"></use>
-                              </svg>
+                            <svg viewBox="0 0 73.168 73.168" class="icon">
+                              <use xlink:href="#menu-alt"></use>
+                            </svg>
                           </button>
                         </div>
                       </div>
                       <button class="btn btn-primary btn-sm ml-1 btn-icon" type="button">
-                          <svg viewBox="0 0 512 512" class="icon">
-                              <use xlink:href="#qr"></use>
-                          </svg>
+                        <svg viewBox="0 0 512 512" class="icon">
+                          <use xlink:href="#qr"></use>
+                        </svg>
                       </button>
                     </div>
                   </div>
                   <div class="col-sm-4 mb-sm-0 mb-1">
-                    <label class="mb-0" for="task">WO#</label>
-                    <input type="text" class="form-control form-control-sm" id="wo">
+                    <label class="mb-0" for="task">{{'WO'|translate}}</label>
+                    <input type="text" class="form-control form-control-sm" id="wo" name="wo" [(ngModel)]="selectedTaskModel.OPTM_WONO"
+                    disabled>
                   </div>
                   <div class="col-sm-4 mb-sm-0 mb-1">
-                    <label class="mb-0" for="workCenter">Work Center</label>
-                    <input type="text" class="form-control form-control-sm" id="workCenter">
+                    <label class="mb-0" for="workCenter">{{'WorkCenter'|translate}}</label>
+                    <input type="text" class="form-control form-control-sm" id="workCenter" name="workCenter"
+                      [(ngModel)]="selectedTaskModel.OPTM_WC" disabled>
                   </div>
                 </div>
               </form>
-  
-              <kendo-tabstrip fxFlex class="border-0">                
+
+              <kendo-tabstrip fxFlex class="border-0">
                 <kendo-tabstrip-tab [selected]="true">
                   <ng-template kendoTabTitle>
                     Time Entry
                   </ng-template>
                   <ng-template kendoTabContent>
-                    <app-time-entry></app-time-entry>
+                    <app-time-entry [selectedTaskModel]="selectedTaskModel" 
+                    [interruptReasonList]="interruptReasonList"></app-time-entry>
                   </ng-template>
                 </kendo-tabstrip-tab>
                 <kendo-tabstrip-tab>
@@ -60,7 +65,7 @@
                     Details
                   </ng-template>
                   <ng-template kendoTabContent>
-                    <app-details ></app-details>
+                    <app-details [selectedTaskModel]="selectedTaskModel"></app-details>
                   </ng-template>
                 </kendo-tabstrip-tab>
                 <kendo-tabstrip-tab>
@@ -90,48 +95,62 @@
 
 <div class="window-wrapper task-list" id="task-list" *ngIf="windowOpened">
   <div class="window-inner">
-      <kendo-window [minWidth]="200" (stateChange)="windowStateChange()" [(state)]="windowState" [minHeight]="125" *ngIf="windowOpened" (close)="close()">
-        <kendo-window-titlebar>
-          <span class="window-title">Task List</span>
-          <div class="window-option">
-            <button class="maximum" kendoWindowMaximizeAction></button>
-            <button class="restore" kendoWindowRestoreAction></button>
-            <button class="close" kendoWindowCloseAction></button>
-          </div>
-        </kendo-window-titlebar>
-        <!-- <p>The state of the Window is <b>{{windowState}}</b></p> -->
-        <!-- Kendo Grid Start -->
-        <kendo-grid [data]="gridData" [height]="410">
-          <kendo-grid-column media="(max-width: 450px)" title="Items">
-              <ng-template kendoGridCellTemplate let-dataItem>
-                  <!-- template for mobile -->
-                  <dl>
-                      <dt>Product ID</dt>
-                      <dd>{{ dataItem.ProductID}}</dd>
+    <kendo-window [minWidth]="200" (stateChange)="windowStateChange()" [(state)]="windowState" [minHeight]="125" *ngIf="windowOpened"
+      (close)="close()">
+      <kendo-window-titlebar>
+        <span class="window-title">Task List</span>
+        <div class="window-option">
+          <button class="maximum" kendoWindowMaximizeAction></button>
+          <button class="restore" kendoWindowRestoreAction></button>
+          <button class="close" kendoWindowCloseAction></button>
+        </div>
+      </kendo-window-titlebar>
+      <!-- <p>The state of the Window is <b>{{windowState}}</b></p> -->
+      <!-- Kendo Grid Start -->
+      <kendo-grid [data]="allTaskList" [height]="410" [selectable]="true" (selectionChange)="onRowSelection($event)">
+        <kendo-grid-column media="(max-width: 450px)" title="Items">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- template for mobile -->
+            <dl>
+              <dt>{{'TaskId'|translate}}</dt>
+              <dd>{{ dataItem.TaskId}}</dd>
 
-                      <dt>Product Name</dt>
-                      <dd>{{ dataItem.ProductName }}</dd>
+              <dt>{{'WO'|translate}}</dt>
+              <dd>{{ dataItem.OPTM_WONO }}</dd>
 
-                      <dt>Category Name</dt>
-                      <dd>{{ dataItem.Category.CategoryName }}</dd>
-                  </dl>
-              </ng-template>
-          </kendo-grid-column>
-          
-          <!-- columns for mid-size devices -->
-          <kendo-grid-column media="(min-width: 768px)" field="ProductID" title="ID" width="40">
-          </kendo-grid-column>
-          <kendo-grid-column media="(min-width: 768px)" field="ProductName" title="Name" width="250">
-          </kendo-grid-column>
-          <kendo-grid-column media="(min-width: 768px)" field="Category.CategoryName" title="Category">
-          </kendo-grid-column>
-          <kendo-grid-column media="(min-width: 768px)" field="UnitPrice" title="Price" width="80">
-          </kendo-grid-column>
-          <kendo-grid-column media="(min-width: 768px)" field="UnitsInStock" title="In stock" width="80">
-          </kendo-grid-column>
-        </kendo-grid>
-        <!-- Kendo Grid End -->
+              <dt>{{'WorkCenter'|translate}}</dt>
+              <dd>{{ dataItem.OPTM_WC }}</dd>
 
-      </kendo-window>
+              <dt>{{'OpnStartDate'|translate}}</dt>
+              <dd>{{ dataItem.OPTM_OPNSTDATETIME}}</dd>
+
+              <dt>{{'OpnEndDate'|translate}}</dt>
+              <dd>{{ dataItem.OPTM_OPNENDDATETIME }}</dd>
+
+              <dt>{{'OpenQty'|translate}}</dt>
+              <dd>{{ dataItem.OPTM_REMAININGQTY }}</dd>
+            </dl>
+          </ng-template>
+        </kendo-grid-column>
+
+        <!-- columns for mid-size devices -->
+        <kendo-grid-column media="(min-width: 768px)" field="TaskId" title="{{'TaskId'|translate}}" width="50">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="OPTM_WONO" title="{{'WO'|translate}}" width="80">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="OPTM_WC" title="{{'WorkCenter'|translate}}" width="80">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="OPTM_OPNSTDATETIME" title="{{'OpnStartDate'|translate}}"
+          width="80">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="OPTM_OPNENDDATETIME" title="{{'OpnEndDate'|translate}}"
+          width="80">
+        </kendo-grid-column>
+        <kendo-grid-column media="(min-width: 768px)" field="OPTM_REMAININGQTY" title="{{'OpenQty'|translate}}" width="50">
+        </kendo-grid-column>
+      </kendo-grid>
+      <!-- Kendo Grid End -->
+
+    </kendo-window>
   </div>
 </div>

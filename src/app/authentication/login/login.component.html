@@ -64,7 +64,7 @@
                       ></kendo-dropdownlist>
                     </div>
                     <div class="form-group mb-2">
-                      <label for="workCenter" class="mb-0">{{'WareCenter'|translate}} <span class="text-danger">*</span></label>
+                      <label for="workCenter" class="mb-0">{{'WorkCenter'|translate}} <span class="text-danger">*</span></label>
                       <kendo-dropdownlist class="w-100" [data]="workCenterList" 
                       (selectionChange)="selectionChange($event, 'workcenter')"
                       (click)="getWorkCenterList()" 
@@ -78,7 +78,8 @@
                     <div class="row form-group mb-0">
                       <div class="col-12 d-flex align-items-center my-2">
                         <label class="custom-checkbox mb-0">
-                          <input type="checkbox" value="" [(ngModel)]="requireMachine" (change)="onCheckChange($event, 'machine')">
+                          <input type="checkbox" value="" name="machineCheckbox" 
+                          [(ngModel)]="isRequireMachine" (change)="onCheckChange($event, 'machine')">
                           <span class="checkbox"></span>
                           <span class="text-inverse">{{'RequireMachine'|translate}}</span>
                         </label>
@@ -86,7 +87,8 @@
                     </div>
                     <div class="form-group mb-2" >
                       <label for="machine" class="mb-0">{{'Machine'|translate}} <span class="text-danger">*</span></label>
-                      <kendo-dropdownlist class="w-100" [data]="machineList" [disabled]="!isRequireMachine"
+                      <kendo-dropdownlist class="w-100" [data]="machineList"  [disabled]="!isRequireMachine"
+                      (selectionChange)="selectionChange($event, 'machine')"
                       (click)="getMachineList()"
                       textField="U_O_EQUP_ID"
                       valueField="U_O_EQUP_ID"
@@ -99,7 +101,8 @@
                     <div class="row form-group mb-0">
                       <div class="col-12 d-flex align-items-center my-2">
                         <label class="custom-checkbox mb-0">
-                          <input type="checkbox" value="" [(ngModel)]="rememberMe" (change)="onCheckChange($event, 'remember')">
+                          <input type="checkbox" value="" name="rememberMeCheckbox" 
+                          (change)="onCheckChange($event, 'remember')" [(ngModel)]="isRememberMe">
                           <span class="checkbox"></span>
                           <span class="text-inverse">{{'RememberMe'|translate}}</span>
                         </label>

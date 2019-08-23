@@ -10,7 +10,7 @@
   "PsurlFailed": "PSURL Failed",
   "Company": "Company",
   "Warehouse": "Warehouse",
-  "WareCenter": "Work Center",
+  "WorkCenter": "Work Center",
   "UnPwdBlankErrorMsg": "username or password cannot be blank",
   "InvalidUnPwdErrMsg": "Invalid username & password",
   "InvalidUn": "Invalid Username",
@@ -85,5 +85,46 @@
   "Reset":"Reset",
   "RequireMachine": "Require Machine",
   "Machine": "Machine",
-  "LogoutSuccess":"You have successfully logged out"
+  "LogoutSuccess":"You have successfully logged out",
+
+
+
+
+  "TaskId": "Task Id",
+  "WO": "WO#",
+  "OperationNo": "Operation No.",
+  "OpnStartDate": "Opn Start Date",
+  "OpnEndDate": "Opn End Date",
+  "Task": "Task",
+  "StartDate": "Start Date",
+  "EndDate": "End Date",
+  "ProducedQty": "Qty Produced",
+  "AcceptedQty": "Qty Accepted",
+  "RejectedQty": "Qty Rejected",
+  "NCQty": "Qty NC",
+  "InterruptDate": "Interrupt Date",
+  "InterruptReason": "Interrupt Reason",
+  "Remarks": "Remarks",
+  "AbortReason": "Abort Reason",
+  "StartResume": "Start/Resume",
+  "Interrupt": "Interrupt",
+  "Finish": "Finish",
+  "Abort": "Abort",
+  "OrderStartDateTime": "Order Start Date Time",
+  "OrderDueDateTime": "Order Due Date Time",
+  "Operation": "Opn#",
+  "OpenQtyOnOpn": "Open Qty on Opn",
+  "Generate": "Generate",
+  "OperationStartPerc": "Opn Start %",
+  "OperationEndPerc": "Opn End %",
+  "OpnStandardTime": "Opn Standard Time",
+  "OrderQty": "Order Qty",
+  "AssignedQty": "Assigned Qty",
+  
+  "AssignedTime": "Assigned Time",
+  "BreakDownTime": "(Break+Down)Time",
+  "WorkTime": "Work Time",
+  "ReprintLabels": "Reprint Labels",
+  
+  "": ""
 }

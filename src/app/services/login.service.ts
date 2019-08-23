@@ -2,25 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Constants } from 'src/constants/constants';
+import { ApiUtils } from 'src/constants/apiutils';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LoginService {
-    private url_ValidateUserLogin: string = "/api/login/ValidateUserLogin";
-    private url_getWorkcenter: string = "/api/login/getWorkcenter";
-    private url_getConfigSetting: string = "/api/AdvanceSFDC/getConfigSetting";
-    private url_GetLicenseData: string = "/api/Login/GetLicenseData";
-    private url_GetCompaniesAndLanguages: string = "/api/Login/GetCompaniesAndLanguages";
-    private url_GetPSURL: string = "/api/SFDCLogin/GetPSURL";
-    private url_GetWHS: string = "/api/Login/GetWHS";
-    private url_GetMachine: string = "/api/SFDCLogin/GetMachine";
-    private url_ValidateShiftTime: string = "/api/SFDCLogin/ValidateShiftTime";
-    private url_GetMenuRecord: string = "/api/SFDCLogin/GetMenuRecord";
-    private url_UserLoginLog: string = "/api/SFDCLogin/UserLoginLog";
     public config_params: any;
-  
     public httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -38,7 +27,7 @@ export class LoginService {
   
     getPSURL(url:string): Observable<any> {
       var jObject = { CompanyName: JSON.stringify([{ CompanyDBId: "OPTIPROADMIN" }]) };
-      return this.httpclient.post(url+this.url_GetPSURL, jObject, this.httpOptions);
+      return this.httpclient.post(url+ApiUtils.url_GetPSURL, jObject, this.httpOptions);
     } 
   
     getCompAndLang(): Observable<any> {
@@ -48,7 +37,7 @@ export class LoginService {
           Product: "SFES"
         }])
       };
-      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + this.url_GetCompaniesAndLanguages, jObject,
+      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + ApiUtils.url_GetCompaniesAndLanguages, jObject,
         this.httpOptions);
     }
 
@@ -59,7 +48,7 @@ export class LoginService {
           CompanyDBId: compId
         }])
       };
-      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + this.url_GetWHS, jObject,
+      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + ApiUtils.url_GetWHS, jObject,
         this.httpOptions);
     }
 
@@ -71,7 +60,7 @@ export class LoginService {
           Warehouse: whsId
         }])
       };
-      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + this.url_getWorkcenter, jObject,
+      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + ApiUtils.url_getWorkcenter, jObject,
         this.httpOptions);
     }
 
@@ -83,7 +72,7 @@ export class LoginService {
           EmpId: employeID, 
           Workcenter: workCenter }]) 
         };
-      return this.httpclient.post(this.config_params.service_url + this.url_GetMachine, jObject,
+      return this.httpclient.post(this.config_params.service_url + ApiUtils.url_GetMachine, jObject,
         this.httpOptions);
     }
   
@@ -102,7 +91,7 @@ export class LoginService {
           IsAdmin: "false"
         }])
       };
-      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + this.url_ValidateUserLogin, jObject,
+      return this.httpclient.post(localStorage.getItem(Constants.PSURLFORADMIN) + ApiUtils.url_ValidateUserLogin, jObject,
         this.httpOptions);
     }
   
@@ -112,13 +101,16 @@ export class LoginService {
      */
     getLicenseData(companyId: string): Observable<any> {
       let jObject = {
-        LoginId: localStorage.getItem(Constants.UserId),
-        CompanyId: companyId
+        Username: JSON.stringify([{
+          Username: localStorage.getItem(Constants.UserId),
+          DataBase: companyId
+        }])
       };
+
       if(this.config_params == null){
         this.loadConfig();
        }
-      return this.httpclient.post(this.config_params.service_url + this.url_GetLicenseData, jObject, this.httpOptions);
+      return this.httpclient.post(this.config_params.service_url + ApiUtils.url_GetLicenseData, jObject, this.httpOptions);
     }
 
     validateShiftTime(compId: string, emplId: string, workCenter: string, date: any): Observable<any> {
@@ -130,7 +122,7 @@ export class LoginService {
           WorkCenter: workCenter,
           Date: date }]) 
         };
-      return this.httpclient.post(this.config_params.service_url + this.url_ValidateShiftTime, jObject, this.httpOptions);
+      return this.httpclient.post(this.config_params.service_url + ApiUtils.url_ValidateShiftTime, jObject, this.httpOptions);
     }
 
     menuRecord(): Observable<any> {
@@ -139,16 +131,31 @@ export class LoginService {
           UserCode: localStorage.getItem(Constants.UserId)
          }]) 
         };
-      return this.httpclient.post(this.config_params.service_url + this.url_GetMenuRecord, jObject, this.httpOptions);
+      return this.httpclient.post(this.config_params.service_url + ApiUtils.url_GetMenuRecord, jObject, this.httpOptions);
     }
 
-    userLoginLog(): Observable<any> {
+    userLoginLog(company: string, whs: string, workCenter: string, machine: string, date: string): Observable<any> {
       var jObject = { 
-        Permission: JSON.stringify([{ 
-          UserCode: localStorage.getItem(Constants.UserId)
+        LoginValues: JSON.stringify([{ 
+          Username: localStorage.getItem(Constants.UserId),
+          Company: company,
+          Warehouse: whs,
+          Workcenter: workCenter,
+          Machine: machine,
+          UserLogDateTime: date
          }]) 
         };
-      return this.httpclient.post(this.config_params.service_url + this.url_GetMenuRecord, jObject, this.httpOptions);
+      return this.httpclient.post(this.config_params.service_url + ApiUtils.url_UserLoginLog, jObject, this.httpOptions);
+    }
+
+    createDirectory(loginDateTime: string){
+      var jObject = { 
+        UserDetailsForAttachment: JSON.stringify([{ 
+          Username: localStorage.getItem(Constants.UserId),
+          logInUserTime: loginDateTime
+         }]) 
+        };
+      return this.httpclient.post(this.config_params.service_url + ApiUtils.url_CreateDirectory, jObject, this.httpOptions);
     }
   }
 

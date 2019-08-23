@@ -41,11 +41,13 @@ export class LoginComponent implements OnInit {
   selectedMachineModel: GetMachine;
 
   selectedCompany: string;
+  selectedEmpId: string;
   selectedWhse: string;
   selectedWorkCenter: string;
   selectedMachine: string;
   requireMachine: any;
   rememberMe: any;
+  loggedInUserType: string;
 
   constructor(private router: Router, private notificationService: NotificationService,
     private loginService: LoginService, private commonService: Commonservice, private translate: TranslateService, private httpClient: HttpClient) {
@@ -56,28 +58,42 @@ export class LoginComponent implements OnInit {
       this.setDefaultValueOnFields();
     });
     this.commonService.loadConfig();
+    this.loggedInUserType = "user";
   }
 
   ngOnInit() {
     this.setDefaultValueOnFields();
 
-    // Get cookie start
-    // if (this.getCookie('cookieEmail') != '' && this.getCookie('cookiePassword') != '') {
-    //   this.username = this.getCookie('cookieEmail');
-    //   this.password = this.getCookie('cookiePassword');
-    //   this.isRememberMe = true;
-    // } else {
-    this.username = '';
-    this.password = '';
-    this.isRememberMe = false;
-    // }
-
-    // Apply classes on Body
-    // const element = document.getElementsByTagName("body")[0];
-    // element.className = "";
-    // element.classList.add("login");
-    // element.classList.add("opti_account-module");
-    // console.log("init", "init");
+    //Get cookie start
+    if (this.getCookie('isRememberMe') == 'true') {
+      this.username = this.getCookie(Constants.username);
+      this.password = this.getCookie(Constants.password);
+      this.selectedCompany = this.getCookie(Constants.CompID);
+      this.selectedWhse = this.getCookie(Constants.whseId);
+      this.selectedWorkCenter = this.getCookie(Constants.workCenter);
+      this.selectedMachine = this.getCookie(Constants.machine);
+      this.selectedEmpId = this.getCookie(Constants.EmpID);
+      this.isRememberMe = true;
+      this.isConnected = true;
+      this.selectedCompanyModel = { OPTM_COMPID: this.selectedCompany, OPTM_EMPID: "0", cmpName: "" };
+      this.selectedWhseModel = { OPTM_WHSE: this.selectedWhse, BPLid: 0 };
+      this.selectedWorkCenterModel = { OPTM_WORKCENTER: this.selectedWorkCenter };
+      this.selectedMachineModel = { U_O_EQUP_ID: this.selectedMachine };
+      if(this.getCookie('isRequireMachine') == 'true'){
+        this.isRequireMachine = true;
+      }
+    } else {
+      this.username = '';
+      this.password = '';
+      this.selectedCompany = '';
+      this.selectedWhse = '';
+      this.selectedWorkCenter = '';
+      this.selectedMachine = '';
+      this.selectedEmpId = '';
+      this.isRememberMe = false;
+      this.isRequireMachine = false;
+      this.isConnected = false;
+    }
 
     this.httpClient.get('./assets/config.json').subscribe(
       data => {
@@ -196,7 +212,7 @@ export class LoginComponent implements OnInit {
     this.showLoader = true;
     this.loginService.getLicenseData(this.selectedCompany).subscribe(
       data => {
-        this.licenseData = data;
+        this.licenseData = data.LICData;
         if (this.licenseData != null && this.licenseData != undefined) {
           this.handleLicenseDataResponse();
         } else {
@@ -215,53 +231,65 @@ export class LoginComponent implements OnInit {
     console.log("in handle license data success response");
     this.selectedWhse = document.getElementById("whseId").innerText.trim();
     this.showLoader = false;
-    if (this.licenseData.length > 1) {
-      if (this.licenseData[1].ErrMessage == "" || this.licenseData[1].ErrMessage == null) {
-        if (this.licenseData[0].Message == "True") {
-          this.selectedCompany = document.getElementById("companyId").innerText.trim();
-          localStorage.setItem(Constants.GUID, this.licenseData[1].GUID);
-          localStorage.setItem(Constants.CompID, this.selectedCompany);
-          localStorage.setItem(Constants.whseId, this.selectedWhse);
-          localStorage.setItem(Constants.Token, this.licenseData[0].Token);
-          if (this.licenseData[0].DefaultValues.length == 8) {
-            localStorage.setItem("DefaultValues", JSON.stringify(this.licenseData[0].DefaultValues));
-            localStorage.setItem("DecimalPrecision", this.licenseData[0].DefaultValues[3].DefaultValue);
-            localStorage.setItem("DecimalSeparator", this.licenseData[0].DefaultValues[4].DefaultValue);
-            localStorage.setItem("ThousandSeparator", this.licenseData[0].DefaultValues[5].DefaultValue);
-            localStorage.setItem("DATEFORMAT", this.licenseData[0].DefaultValues[6].DefaultValue);
-          } else {
-            localStorage.setItem("DefaultValues", JSON.stringify(this.licenseData[0].DefaultValues));
-            localStorage.setItem("DecimalPrecision", this.licenseData[0].DefaultValues[0].DefaultValue);
-            localStorage.setItem("DecimalSeparator", this.licenseData[0].DefaultValues[1].DefaultValue);
-            localStorage.setItem("ThousandSeparator", this.licenseData[0].DefaultValues[2].DefaultValue);
-            localStorage.setItem("DATEFORMAT", this.licenseData[0].DefaultValues[3].DefaultValue);
-          }
-
-          // code for remember me 
-          if (this.isRememberMe == true) {
-            this.setCookie('cookieEmail', this.username, 365);
-            this.setCookie('cookiePassword', this.password, 365);
-            this.setCookie(Constants.CompID, this.selectedCompany, 365);
-            this.setCookie('whseId', this.selectedWhse, 365);
-            this.setCookie('WorkCenter', this.selectedWorkCenter, 365);
-            this.setCookie('machineId', this.selectedMachine, 365);
-          } else {
-            this.setCookie('cookieEmail', "", 365);
-            this.setCookie('cookiePassword', "", 365);
-            this.setCookie(Constants.CompID, "", 365);
-            this.setCookie('whseId', "", 365);
-            this.setCookie('WorkCenter', "", 365);
-            this.setCookie('machineId', "", 365);
-          }
-          this.router.navigateByUrl('home/dashboard');
+    if (this.licenseData.length > 0) {
+      //Check if the Length of licenseData is greater than 0 or not
+      // if(true){
+      if (this.licenseData[0].ErrMessage === "" || this.licenseData[0].ErrMessage === null) {
+        localStorage.setItem(Constants.GUID, this.licenseData[0].GUID);
+        localStorage.setItem(Constants.username, this.username);
+        localStorage.setItem(Constants.CompID, this.selectedCompany);
+        localStorage.setItem(Constants.EmpID, this.selectedCompanyModel.OPTM_EMPID);
+        localStorage.setItem(Constants.whseId, this.selectedWhse);
+        localStorage.setItem(Constants.workCenter, this.selectedWorkCenter);
+        localStorage.setItem(Constants.machine, this.selectedMachine);
+        localStorage.setItem("LogonOnFirstTime", "1");
+        localStorage.setItem("LogInUserTime", "1");
+        // code for remember me 
+        if (this.isRememberMe == true) {
+          this.setCookie(Constants.username, this.username, 365);
+          this.setCookie(Constants.password, this.password, 365);
+          this.setCookie(Constants.CompID, this.selectedCompany, 365);
+          this.setCookie(Constants.EmpID, this.selectedCompanyModel.OPTM_EMPID, 365);
+          this.setCookie(Constants.whseId, this.selectedWhse, 365);
+          this.setCookie(Constants.workCenter, this.selectedWorkCenter, 365);
+          this.setCookie(Constants.machine, this.selectedMachine, 365);
+          this.setCookie('isRequireMachine', "true", 365);
+          this.setCookie('isRememberMe', "true", 365);
         } else {
-          alert(this.licenseData[0].Message + " " + this.licenseData[0].Token);
+          this.setCookie(Constants.username, "", 365);
+          this.setCookie(Constants.password, "", 365);
+          this.setCookie(Constants.CompID, "", 365);
+          this.setCookie(Constants.EmpID, "", 365);
+          this.setCookie(Constants.whseId, "", 365);
+          this.setCookie(Constants.workCenter, "", 365);
+          this.setCookie(Constants.machine, "", 365);
+          this.setCookie('isRequireMachine', "false", 365);
+          this.setCookie('isRememberMe', "false", 365);
         }
+
+        //to get the Login Date and Time
+        var loggedInUserTime = new Date();
+        var loginmonth = loggedInUserTime.getMonth() + 1;
+        var dateStr = "" + loggedInUserTime.getDate() + "-" + loginmonth + "-" + loggedInUserTime.getFullYear() + "_" + loggedInUserTime.getHours() + "_" + loggedInUserTime.getMinutes() + "_" + loggedInUserTime.getSeconds() + "_" + loggedInUserTime.getMilliseconds();
+        this.getUserLoginLog(dateStr);
+
+        if (this.loggedInUserType == "manager") {
+          // Do code for manager
+        } else {
+          // Do code for normal user
+          var loggedInUserTime = new Date();
+          var loginmonth = loggedInUserTime.getMonth() + 1;
+          var dateStr = "" + loggedInUserTime.getDate() + "-" + loginmonth + "-" + loggedInUserTime.getFullYear() + "_" + loggedInUserTime.getHours() + "_" + loggedInUserTime.getMinutes() + "_" + loggedInUserTime.getSeconds() + "_" + loggedInUserTime.getMilliseconds();
+          sessionStorage.setItem(Constants.loginDateTime, dateStr);
+          this.createDirectory(dateStr);
+        }
+        this.router.navigateByUrl('/dashboard');
       } else {
-        alert(this.licenseData[1].ErrMessage);
+        this.show(this.licenseData[0].ErrMessage);
+        return false;
       }
     } else {
-      alert(this.licenseData[0].ErrMessage);
+      this.show(this.licenseData[0].ErrMessage);
     }
   }
 
@@ -346,7 +374,7 @@ export class LoginComponent implements OnInit {
         this.workCenterList = data.Table;
         if (this.isRememberMe) {
           for (var i = 0; i < this.workCenterList.length; i++) {
-            if (this.getCookie(Constants.workcenter) == this.workCenterList[i].OPTM_WORKCENTER) {
+            if (this.getCookie(Constants.workCenter) == this.workCenterList[i].OPTM_WORKCENTER) {
               this.selectedWorkCenterModel = this.workCenterList[i];
               this.selectedWorkCenter = this.selectedWorkCenterModel.OPTM_WORKCENTER;
               break;
@@ -395,9 +423,9 @@ export class LoginComponent implements OnInit {
    */
   onCheckChange(event: any, type: string) {
     if ('remember' == type) {
-      this.isRememberMe = !this.isRememberMe;
+      //this.isRememberMe = !this.isRememberMe;
     } else if ('machine' == type) {
-      this.isRequireMachine = !this.isRequireMachine;
+      //this.isRequireMachine = !this.isRequireMachine;
       if (this.isRequireMachine) {
         this.getMachineList();
       } else {
@@ -452,8 +480,12 @@ export class LoginComponent implements OnInit {
   /**
    * 
    */
-  getUserLoginLog() {
-    this.loginService.userLoginLog().subscribe(
+  getUserLoginLog(loginDateTime) {
+    var machine = "";
+    if (this.isRequireMachine) {
+      machine = this.selectedMachine;
+    }
+    this.loginService.userLoginLog(this.selectedCompany, this.selectedWhse, this.selectedWorkCenter, machine, loginDateTime).subscribe(
       data => {
 
         console.log("getUserLoginLog data: " + data);
@@ -504,10 +536,12 @@ export class LoginComponent implements OnInit {
     this.isConnected = false;
     form.resetForm();
     this.readOnlyFlag = false;
-    this.setCookie('cookieEmail', "", 365);
-    this.setCookie('cookiePassword', "", 365);
-    this.setCookie('CompID', "", 365);
-    this.setCookie('whseId', "", 365);
+    this.setCookie(Constants.username, "", 365);
+    this.setCookie(Constants.password, "", 365);
+    this.setCookie(Constants.CompID, "", 365);
+    this.setCookie(Constants.whseId, "", 365);
+    this.setCookie('isRememberMe', "false", 365);
+    this.setCookie('isRequireMachine', "false", 365);
     this.companyList = [];
     this.warehouseList = [];
     this.workCenterList = [];
@@ -562,6 +596,19 @@ export class LoginComponent implements OnInit {
       this.selectedWorkCenterModel = value;
       this.selectedWorkCenter = this.selectedWorkCenterModel.OPTM_WORKCENTER;
       this.getMachineList();
+    } else if ("machine" == fieldType) { // executed on workcenter selection.
+      this.selectedMachineModel = value;
+      this.selectedMachine = this.selectedMachineModel.U_O_EQUP_ID;
     }
+  }
+
+  createDirectory(loginDateTime: string) {
+    this.loginService.createDirectory(loginDateTime).subscribe(
+      data => {
+        console.log("create directory data: " + data);
+      },
+      error => {
+      }
+    );
   }
 }

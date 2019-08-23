@@ -35,15 +35,15 @@
                         <use xlink:href="#user-avatar"></use>
                     </svg>
                   </span> 
-                  <span class="user-name">Rkmanager</span> 
+                  <span class="user-name">{{username}}</span> 
                   <svg viewBox="0 0 451.847 451.847" class="icon icon-caret">
                       <use xlink:href="#caret"></use>
                   </svg>
                 </a>
               </ng-template>
               <ng-template kendoMenuItemContentTemplate class="demoPopup" >
-                  <button type="button" class="dropdown-item" (click)="functionM()">About</button>
-                  <button type="button" class="dropdown-item">Logout</button>
+                  <button type="button" class="dropdown-item" (click)="functionM()">{{'About'|translate}}</button>
+                  <button type="button" class="dropdown-item" (click)="logoutUser()">{{'Logout'|translate}}</button>
               </ng-template>
           </kendo-menu-item>
       </kendo-menu>

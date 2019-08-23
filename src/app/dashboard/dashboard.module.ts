@@ -11,6 +11,8 @@ import { AttachmentsComponent } from './attachments/attachments.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { TrnaslateLazyModule } from 'src/translate-lazy.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
     LayoutModule,
     FlexLayoutModule,
     DialogsModule,
+    TrnaslateLazyModule,
+    FormsModule,
     GridModule
   ],
   declarations: [DashboardComponent, DetailsComponent, TimeEntryComponent, ResourcesComponent, AttachmentsComponent]

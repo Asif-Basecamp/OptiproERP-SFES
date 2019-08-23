@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GetAllTask } from 'src/app/model/GetAllTask';
 
 @Component({
   selector: 'app-details',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsComponent implements OnInit {
 
+  @Input()
+  selectedTaskModel: GetAllTask;
+  
   constructor() { }
 
   ngOnInit() {

@@ -6,6 +6,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { MenuModule } from '@progress/kendo-angular-menu';
+import { TrnaslateLazyModule } from 'src/translate-lazy.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { MenuModule } from '@progress/kendo-angular-menu';
     CommonModule,
     FlexLayoutModule,
     RouterModule,
+    TrnaslateLazyModule,
     MenuModule
   ],
   exports: [
