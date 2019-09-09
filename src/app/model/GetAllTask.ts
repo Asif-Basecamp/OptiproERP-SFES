@@ -1,4 +1,4 @@
-export interface GetAllTask{
+export class GetAllTask{
     TaskId: number;
     OPTM_TASKCODE: string;
     OPTM_PARENT_TASKID: string;

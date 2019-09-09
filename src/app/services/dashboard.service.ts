@@ -92,28 +92,6 @@ export class DashboardService {
       this.httpOptions);
   }
 
-  getAllReasons(): Observable<any> {
-    var jObject = {
-      
-    };
-
-    return this.httpclient.post(localStorage.getItem(Constants.ServiceURL) + ApiUtils.url_GetAllReasons, jObject,
-      this.httpOptions);
-  }
-
-  getResourceDetail(taskId: string, taskHdId: string): Observable<any> {
-    var jObject = {
-      COMPANYDBNAME: JSON.stringify([{
-        COMPANYDBNAME: localStorage.getItem(Constants.CompID),
-        TASKID: taskId,
-        TASKHDID: taskHdId
-      }])
-    };
-
-    return this.httpclient.post(localStorage.getItem(Constants.ServiceURL) + ApiUtils.url_GetResourceDetail, jObject,
-      this.httpOptions);
-  }
-
   getItemManagedBy(itemCode: string): Observable<any> {
     var jObject = {
       GetItemManagedBy: JSON.stringify([{
@@ -138,6 +116,18 @@ export class DashboardService {
     };
 
     return this.httpclient.post(localStorage.getItem(Constants.ServiceURL) + ApiUtils.url_GetAttachmentColumnNames, jObject,
+      this.httpOptions);
+  }
+
+  getConfigSettings(): Observable<any> {
+    var jObject = {
+      TASK: JSON.stringify([{
+        CompanyDBId: localStorage.getItem(Constants.CompID),
+        ScreenId: "1"
+      }])
+    };
+
+    return this.httpclient.post(localStorage.getItem(Constants.ServiceURL) + ApiUtils.url_getConfigSetting, jObject,
       this.httpOptions);
   }
 }

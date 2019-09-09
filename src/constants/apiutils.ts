@@ -3,7 +3,6 @@ export class ApiUtils {
     //Login
     public static url_ValidateUserLogin: string = "/api/login/ValidateUserLogin";
     public static url_getWorkcenter: string = "/api/login/getWorkcenter";
-    public static url_getConfigSetting: string = "/api/AdvanceSFDC/getConfigSetting";
     public static url_GetLicenseData: string = "/api/SFDCLogin/GetLicenseData";
     public static url_GetCompaniesAndLanguages: string = "/api/Login/GetCompaniesAndLanguages";
     public static url_GetPSURL: string = "/api/SFDCLogin/GetPSURL";
@@ -15,6 +14,7 @@ export class ApiUtils {
     public static url_GetPermissionDetails: string = "/api/SFDCLogin/GetPermissionDetails";
     
     //Dashboard
+    public static url_getConfigSetting: string = "/api/AdvanceSFDC/getConfigSetting";
     public static url_CreateDirectory: string = "/api/AdvanceSFDC/CreateDirectory";
     public static url_GetAllTask: string = "/api/AdvanceSFDC/GetAllTask";
     public static url_DeleteDirectory: string = "/api/AdvanceSFDC/DeleteDirectory";
@@ -32,4 +32,12 @@ export class ApiUtils {
     public static url_SaveInteruptTaskDetail: string = "/api/AdvanceSFDC/SaveInteruptTaskDetail";
     public static url_AbortRecord: string = "/api/AdvanceSFDC/AbortRecord";
     public static url_GetAllSavedData: string = "/api/BatchSerialLinking/GetAllSavedData";
+    public static url_SaveTaskDetail: string = "/api/AdvanceSFDC/SaveTaskDetail"
+    public static url_GetBatchSerialLinking: string = "/api/AdvanceSFDC/GetBatchSerialLinking"
+    public static url_GetServerDate: string = "/api/AdvanceSFDC/GetServerDate"
+    public static url_SubmitTask: string = "/api/AdvanceSFDC/SubmitTask"
+    public static url_GetTaskDetailByTaskId: string = "/api/AdvanceSFDC/GetTaskDetailByTaskId"
+
+    //
+    public static url_SFDCPrinting: string = "/api/Printing/SFDCPrinting"
   };

@@ -3,79 +3,90 @@
         <div class="row">
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'StartDate'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="opnStartDate" name="opnStartDate" 
-                [(ngModel)]="selectedTaskModel.OPTM_OPNSTDATETIME" placeholder="">
+                <input type="text" class="form-control-sm form-control" [disabled]="true" id="opnStartDate" name="opnStartDate"
+                    [ngModel]="existingTaskDetails?.OPTM_OPNSTDATETIME|dateFormat" (ngModelChange)="existingTaskDetails.OPTM_OPNSTDATETIME = $event"
+                    placeholder="">
             </div>
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'EndDate'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="opnEndDate" name="opnEndDate" 
-                [(ngModel)]="selectedTaskModel.OPTM_OPNSTDATETIME" placeholder="">
+                <input type="text" class="form-control-sm form-control" [disabled]="true" id="opnEndDate" name="opnEndDate"
+                    [ngModel]="existingTaskDetails?.OPTM_OPNENDDATETIME|dateFormat" (ngModelChange)="existingTaskDetails.OPTM_OPNENDDATETIME = $event"
+                    placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'ProducedQty'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="producedQty" name="producedQty" placeholder="">
+                <input type="number" class="form-control-sm form-control" id="producedQty" [disabled]="disableSubmitFlag"
+                    name="producedQty" [ngModel]="existingTaskDetails?.ProducedQty" (ngModelChange)="existingTaskDetails.ProducedQty = $event"
+                    placeholder="">
             </div>
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'AcceptedQty'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="acceptedQty" name="acceptedQty" 
-                 placeholder="">
+                <input type="number" class="form-control-sm form-control" id="acceptedQty" [disabled]="disableSubmitFlag"
+                    name="acceptedQty" [ngModel]="existingTaskDetails?.OPTM_QTYACCEPTED" (ngModelChange)="existingTaskDetails.OPTM_QTYACCEPTED = $event"
+                    placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'RejectedQty'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="rejectedQty" name="rejectedQty" placeholder="">
-            </div> 
-            <div class="form-group col-md-3 mb-2 pr-md-0">  
+                <input type="number" class="form-control-sm form-control" id="rejectedQty" [disabled]="disableSubmitFlag"
+                    name="rejectedQty" [ngModel]="existingTaskDetails?.RejectedQty" (ngModelChange)="existingTaskDetails.RejectedQty = $event"
+                    placeholder="">
+            </div>
+            <div class="form-group col-md-3 mb-2 pr-md-0">
                 <label for="" class="mb-0">{{'NCQty'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="ncQty" name="ncQty" placeholder="">
-            </div> 
+                <input type="number" class="form-control-sm form-control" id="ncQty" [disabled]="disableSubmitFlag"
+                    name="ncQty" [ngModel]="existingTaskDetails?.NCQty" (ngModelChange)="existingTaskDetails.NCQty = $event"
+                    placeholder="">
+            </div>
             <div class="form-group col-md-3 mb-2 d-flex align-items-end mt-sm-3">
-                <input type="text" class="form-control-sm form-control" id="" placeholder="Batch/Serial">
+                <!-- <input type="text" class="form-control-sm form-control" id="" 
+                [disabled]="!isGeneologyEnable" placeholder="{{'BatchSerial'|translate}}"> -->
+                <button type="button" class="btn btn-info btn-sm" [disabled]="!isGeneologyEnable">{{'BatchSerial'|translate}}</button>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'InterruptDate'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="interruptDate" name="interruptDate" placeholder="">
+                <input type="text" class="form-control-sm form-control" [disabled]="true" id="interruptDate" name="interruptDate"
+                    [ngModel]="existingTaskDetails?.OPTM_INTRPTDATE|dateFormat" (ngModelChange)="existingTaskDetails.OPTM_INTRPTDATE = $event"
+                    placeholder="">
             </div>
             <div class="form-group col-md-6 mb-2">
                 <label for="reason" class="mb-0 w-100">{{'InterruptReason'|translate}}</label>
-                <!-- <kendo-dropdownlist class="w-100" [data]="interruptReasonList"  [disabled]="interruptReasonEnable"
-                      (selectionChange)="selectionChange($event, 'reason')"
-                      (click)="getAllReasons()"
-                      textField="Description"
-                      valueField="Description"
-                      id="interruptReason"
-                      name="interruptReason" 
-                      [(ngModel)]="selectedInterruptReason" 
-                      >
-                      </kendo-dropdownlist> -->
-            </div>            
+                <kendo-dropdownlist class="w-100" [disabled]="disableInterruptFields" [data]="interruptReasonList"
+                    (selectionChange)="selectionChange($event, 'reason')" (click)="getAllReasons('click')" textField="Description"
+                    valueField="Description" id="interruptReason" name="interruptReason" [(ngModel)]="selectedInterruptReason">
+                </kendo-dropdownlist>
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0 w-100">{{'Remarks'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="remarks" name="remarks" placeholder="">
+                <input type="text" class="form-control-sm form-control" [disabled]="disableInterruptFields" id="remarks"
+                    name="remarks" [ngModel]="existingTaskDetails?.OPTM_REMARKS" (ngModelChange)="existingTaskDetails.OPTM_REMARKS = $event"
+                    placeholder="{{'Remarks'|translate}}">
             </div>
             <div class="form-group col-md-6 mb-2">
                 <label for="" class="mb-0">{{'AbortReason'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="abortReason" name="abortReason" placeholder="">
+                <input type="text" class="form-control-sm form-control" [disabled]="disableAbortFlag" id="abortReason"
+                    name="abortReason" [ngModel]="existingTaskDetails?.OPTM_ABORTREASON" (ngModelChange)="existingTaskDetails.OPTM_ABORTREASON = $event"
+                    placeholder="{{'EnterAbortReason'|translate}}">
             </div>
         </div>
     </div>
 
     <div class="form-action-bar justify-content-between d-flex">
         <span>
-            <button type="button" class="btn btn-primary mr-1 btn-sm">{{'StartResume'|translate}}</button>
-            <button type="button" class="btn btn-success mr-1 btn-sm">{{'Finish'|translate}}</button>
+            <button type="button" class="btn btn-primary mr-1 btn-sm" [disabled]="disableStartResumeFlag" (click)="startResume()">{{'StartResume'|translate}}</button>
+            <button type="button" class="btn btn-success mr-1 btn-sm" [disabled]="disablekFinishedFlag" (click)="finish()">{{'Finish'|translate}}</button>
         </span>
         <span>
-            <button type="button" class="btn btn-danger mr-1 btn-sm">{{'Interrupt'|translate}}</button>
-            <button type="button" class="btn btn-danger mr-1 btn-sm">{{'Abort'|translate}}</button>
-            <button type="button" class="btn btn-success btn-sm">{{'Submit'|translate}}</button>
+            <button type="button" class="btn btn-danger mr-1 btn-sm" [disabled]="disableInterruptFlag" (click)="interrupt()">{{'Interrupt'|translate}}</button>
+            <button type="button" class="btn btn-danger mr-1 btn-sm" [disabled]="disableAbortFlag" (click)="abortRecord()">{{'Abort'|translate}}</button>
+            <button type="button" class="btn btn-success btn-sm" [disabled]="disableSubmitFlag" (click)="submit()">{{'Submit'|translate}}</button>
         </span>
     </div>
 </form>

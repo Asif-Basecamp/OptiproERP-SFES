@@ -1,30 +1,41 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LayoutModule } from '@progress/kendo-angular-layout';
-
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
-import { DetailsComponent } from './details/details.component';
-import { TimeEntryComponent } from './time-entry/time-entry.component';
-import { ResourcesComponent } from './resources/resources.component';
-import { AttachmentsComponent } from './attachments/attachments.component';
+import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DialogsModule } from '@progress/kendo-angular-dialog';
-import { GridModule } from '@progress/kendo-angular-grid';
-import { TrnaslateLazyModule } from 'src/translate-lazy.module';
 import { FormsModule } from '@angular/forms';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { TrnaslateLazyModule } from 'src/translate-lazy.module';
+import { DateFormatPipe } from '../common/date-format.pipe';
+import { SharedModule } from '../shared/shared.module';
+import { AttachmentsComponent } from './attachments/attachments.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DetailsComponent } from './details/details.component';
+import { ResourcesComponent } from './resources/resources.component';
+import { TimeEntryComponent } from './time-entry/time-entry.component';
+import { DashboardComponent } from './dashboard.component';
+import { PrintingLabelModule } from '../printing-label/printing-label.module';
 
 @NgModule({
   imports: [
+    
     CommonModule,
     DashboardRoutingModule,
+    PerfectScrollbarModule,
     LayoutModule,
     FlexLayoutModule,
     DialogsModule,
     TrnaslateLazyModule,
     FormsModule,
-    GridModule
+    GridModule,
+    PrintingLabelModule,
+    DropDownsModule
   ],
-  declarations: [DashboardComponent, DetailsComponent, TimeEntryComponent, ResourcesComponent, AttachmentsComponent]
+  declarations: [DashboardComponent, DetailsComponent, TimeEntryComponent,
+    ResourcesComponent, AttachmentsComponent, DateFormatPipe],
+  providers: [DateFormatPipe],
+  exports: []
 })
 export class DashboardModule { }

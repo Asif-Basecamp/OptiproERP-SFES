@@ -5,31 +5,36 @@
                 <label for="" class="mb-0">{{'OrderStartDateTime'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" 
                 id="orderStartDateTime" name="orderStartDateTime" 
-                [(ngModel)]="selectedTaskModel.U_O_STARTDATE" placeholder="">
+                disabled
+                [ngModel]="selectedTaskModel?.U_O_STARTDATE|dateFormat" (ngModelChange)="selectedTaskModel.U_O_STARTDATE = $event" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0">{{'OrderDueDateTime'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" 
-                id="orderDueDateTime" name="orderDueDateTime" 
-                [(ngModel)]="selectedTaskModel.U_O_ENDDATE" placeholder="">
+                id="orderDueDateTime" name="orderDueDateTime"
+                disabled 
+                [ngModel]="selectedTaskModel?.U_O_ENDDATE|dateFormat" (ngModelChange)="selectedTaskModel.U_O_ENDDATE = $event" placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0">{{'Operation'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" 
+                <input type="number" class="form-control-sm form-control" 
                 id="operation" name="operation" 
+                disabled
                 [(ngModel)]="selectedTaskModel.OPTM_FROMOPERNO" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2 d-flex align-items-end">
                 <input type="text" class="form-control-sm form-control" 
                 id="operation1" name="operation1" 
+                disabled
                 [(ngModel)]="selectedTaskModel.OPTM_FROMOPRCODE" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0">{{'OpenQtyOnOpn'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" 
+                <input type="number" class="form-control-sm form-control" 
                 id="openQtyOnOpn" name="openQtyOnOpn" 
+                disabled
                 [(ngModel)]="selectedTaskModel.OPTM_REMAININGQTY" placeholder="">
             </div>
         </div>
@@ -38,11 +43,13 @@
                 <label for="" class="mb-0">{{'ItemCode'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" 
                 id="itemCode" name="itemCode" 
+                disabled
                 [(ngModel)]="selectedTaskModel.OPTM_FGCODE" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2 d-flex align-items-end">
                 <input type="text" class="form-control-sm form-control" 
                 id="itemCode1" name="itemCode1" 
+                disabled
                 [(ngModel)]="selectedTaskModel.Description" placeholder="Mobile ST">
             </div>
             <div class="form-group col-md-4 mb-2">
@@ -59,52 +66,64 @@
                 <label for="" class="mb-0">{{'OperationStartPerc'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" 
                 id="operationStartPerc" name="operationStartPerc" 
+                disabled
                 [(ngModel)]="selectedTaskModel.FormattedOprStartPer" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0 w-100">{{'OperationEndPerc'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" id="operationStartPerc" name="operationStartPerc" 
+                disabled
                 [(ngModel)]="selectedTaskModel.FormattedOprEndPer" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0 w-100">{{'OpnStandardTime'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" 
                 id="opnStandardTime" name="opnStandardTime" 
-                [(ngModel)]="selectedTaskModel.FormattedStdTime" placeholder="">
+                disabled
+                [ngModel]="selectedTaskModel?.FormattedStdTime" (ngModelChange)="selectedTaskModel.FormattedStdTime = $event" placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0">{{'OrderQty'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" 
+                <input type="number" class="form-control-sm form-control" 
                 id="orderQty" name="orderQty" 
+                disabled
                 [(ngModel)]="selectedTaskModel.OPTM_QTYTOPROD" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0 w-100">{{'AssignedQty'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" 
+                <input type="number" class="form-control-sm form-control" 
                 id="assignedQty" name="assignedQty" 
+                disabled
                 [(ngModel)]="selectedTaskModel.AssignedQty" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0 w-100">{{'AssignedTime'|translate}}</label>
                 <input type="text" class="form-control-sm form-control" 
                 id="assignedTime" name="assignedTime" 
-                [(ngModel)]="selectedTaskModel.FormattedAssiTime" placeholder="">
+                disabled
+                [ngModel]="selectedTaskModel?.FormattedAssiTime" (ngModelChange)="selectedTaskModel.FormattedAssiTime = $event" placeholder="">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0">{{'BreakDownTime'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <input type="text" class="form-control-sm form-control" 
+                id="breakDownTime" name="breakDownTime" 
+                disabled  
+                [ngModel]="selectedTaskModel?.FormattedAssiTime" (ngModelChange)="selectedTaskModel.FormattedAssiTime = $event" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0 w-100">{{'WorkTime'|translate}}</label>
-                <input type="text" class="form-control-sm form-control" id="" placeholder="">
+                <input type="text" class="form-control-sm form-control" 
+                id="workTime" name="workTime" 
+                disabled 
+                [ngModel]="selectedTaskModel?.FormattedAssiTime" (ngModelChange)="selectedTaskModel.FormattedAssiTime = $event" placeholder="">
             </div>
             <div class="form-group col-md-4 mb-2">
                 <label for="" class="mb-0 w-100">{{'ReprintLabels'|translate}}</label>
-                <button class="btn btn-outline-secondary btn-sm btn-icon" type="button">
+                <button class="btn btn-outline-secondary btn-sm btn-icon" type="button" (click)="displayPDF()">
                     <svg viewBox="0 0 512 512" class="icon">
                         <use xlink:href="#qr"></use>
                     </svg>
@@ -113,3 +132,6 @@
         </div>
     </div>
 </form>
+<div>
+    <app-display-pdf *ngIf="shouldShowPDF" [base64String]='base64String' [fileName]='fileName' (pdfClose)="closePDF($event)"></app-display-pdf>
+</div>

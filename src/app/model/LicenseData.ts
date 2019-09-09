@@ -1,4 +1,4 @@
-export interface LicenseData{
+export class LicenseData{
     UISettings: string;
     PrinterServerIP: string;
     ShowModulerAppview: string;
@@ -10,20 +10,20 @@ export interface LicenseData{
     DefaultValues: any;
     VersionSuccess: string;
     VersionFlag: string;
-    LicenceSuccess: string,
-    LicenceResponse: string,
-    LoginId: string,
-    Password: string,
-    CompanyId: string,
-    Message: string,
-    Token: string,
-    AuthenticationToken: string,
-    MgsDfltValues: string,
-    MenuId: string,
-    GUID: string,
-    Active: string,
-    Product: string,
-    UserExceed: string,
-    ErrMessage: string,
-    SapUser: string
+    LicenceSuccess: string;
+    LicenceResponse: string;
+    LoginId: string;
+    Password: string;
+    CompanyId: string;
+    Message: string;
+    Token: string;
+    AuthenticationToken: string;
+    MgsDfltValues: string;
+    MenuId: string;
+    GUID: string;
+    Active: string;
+    Product: string;
+    UserExceed: string;
+    ErrMessage: string;
+    SapUser: string;
 }

@@ -21,7 +21,7 @@
                     <div class="d-flex align-items-center">
                       <div class="input-group">
                         <input type="text" class="form-control form-control-sm" id="taskId" name="taskId"
-                        [(ngModel)]="selectedTaskModel.TaskId">
+                        [ngModel]="selectedTaskModel?.TaskId" (ngModelChange)="selectedTaskModel.TaskId = $event">
                         <div class="input-group-append">
                           <button class="btn btn-primary btn-sm btn-icon" type="button" (click)="taskListOpen()">
                             <svg viewBox="0 0 73.168 73.168" class="icon">
@@ -39,25 +39,34 @@
                   </div>
                   <div class="col-sm-4 mb-sm-0 mb-1">
                     <label class="mb-0" for="task">{{'WO'|translate}}</label>
-                    <input type="text" class="form-control form-control-sm" id="wo" name="wo" [(ngModel)]="selectedTaskModel.OPTM_WONO"
+                    <input type="text" class="form-control form-control-sm" id="wo" name="wo" 
+                    [ngModel]="selectedTaskModel?.OPTM_WONO" (ngModelChange)="selectedTaskModel.OPTM_WONO = $event"
                     disabled>
                   </div>
                   <div class="col-sm-4 mb-sm-0 mb-1">
                     <label class="mb-0" for="workCenter">{{'WorkCenter'|translate}}</label>
                     <input type="text" class="form-control form-control-sm" id="workCenter" name="workCenter"
-                      [(ngModel)]="selectedTaskModel.OPTM_WC" disabled>
+                      [ngModel]="selectedTaskModel?.OPTM_WC" (ngModelChange)="selectedTaskModel.OPTM_WC = $event" disabled>
                   </div>
                 </div>
               </form>
 
-              <kendo-tabstrip fxFlex class="border-0">
+              <kendo-tabstrip fxFlex class="border-0" (tabSelect)="onTabSelected($event)">
                 <kendo-tabstrip-tab [selected]="true">
                   <ng-template kendoTabTitle>
                     Time Entry
                   </ng-template>
                   <ng-template kendoTabContent>
-                    <app-time-entry [selectedTaskModel]="selectedTaskModel" 
-                    [interruptReasonList]="interruptReasonList"></app-time-entry>
+                    <app-time-entry [selectedTaskModel]="selectedTaskModel"
+                    [isGeneologyEnable]="isGeneologyEnable"
+                    [existingTaskDetails]="existingTaskDetails"
+                    [resourceList]="resourceList"
+                    [disableStartResumeFlag]="disableStartResumeFlag"
+                    [disableInterruptFlag]="disableInterruptFlag"
+                    [disablekFinishedFlag]="disablekFinishedFlag"
+                    [disableAbortFlag]="disableAbortFlag"
+                    [disableSubmitFlag]="disableSubmitFlag"
+                    [disableInterruptFields]="disableInterruptFields"></app-time-entry>
                   </ng-template>
                 </kendo-tabstrip-tab>
                 <kendo-tabstrip-tab>
@@ -65,7 +74,8 @@
                     Details
                   </ng-template>
                   <ng-template kendoTabContent>
-                    <app-details [selectedTaskModel]="selectedTaskModel"></app-details>
+                    <app-details [selectedTaskModel]="selectedTaskModel"
+                    [existingTaskDetails]="existingTaskDetails"></app-details>
                   </ng-template>
                 </kendo-tabstrip-tab>
                 <kendo-tabstrip-tab>
@@ -73,7 +83,7 @@
                     Resources
                   </ng-template>
                   <ng-template kendoTabContent>
-                    <app-resources></app-resources>
+                    <app-resources [resourceList]="resourceList"></app-resources>
                   </ng-template>
                 </kendo-tabstrip-tab>
                 <kendo-tabstrip-tab>

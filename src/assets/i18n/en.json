@@ -87,9 +87,6 @@
   "Machine": "Machine",
   "LogoutSuccess":"You have successfully logged out",
 
-
-
-
   "TaskId": "Task Id",
   "WO": "WO#",
   "OperationNo": "Operation No.",
@@ -125,6 +122,17 @@
   "BreakDownTime": "(Break+Down)Time",
   "WorkTime": "Work Time",
   "ReprintLabels": "Reprint Labels",
-  
+  "ResPlanned": "Resource Planned",
+  "ResInstPlanned": "Resource Instance Planned",
+  "ResUsed": "Resource Used",
+  "ResInstUsed": "Resource Instance Used",
+  "WorkTimeInMins": "Work Time (Mins)",
+  "BreakTime": "Break Time (Mins)",
+  "DownTime": "Down Time (Mins)",
+  "SelectReason": "Select interrupt reason",
+  "EnterAbortReason": "Enter abort reason",
+  "MsgAbortReason": "Please enter abort reason.",
+  "MsgIntrptReason": "Please select interrupt reason.",
+  "BatchSerial": "Batch/Serial",
   "": ""
 }

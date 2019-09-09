@@ -5,6 +5,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Router } from '@angular/router';
 import { NotificationService } from '@progress/kendo-angular-notification';
 import { colors } from '../colors';
+import { Constants } from 'src/constants/constants';
+import { ApiUtils } from 'src/constants/apiutils';
 
 @Injectable({
   providedIn: 'root'
@@ -73,28 +75,10 @@ export class Commonservice {
     return temp;
   }
 
-
-  // public toast_config: any = {
-  //   closeButton: true,
-  //   progressBar: false,
-  //   opacity: 1,
-  //   timeOut: 5000,
-  //   positionClass: 'toast-top-right',
-  //   iconClasses: {
-  //     error: 'alert alert-danger',
-  //     info: 'alert alert-info ',
-  //     success: 'alert alert-success ',
-  //     warning: 'alert alert-warning'
-  //   }
-  // };
-
-
   // Methods
   public ShareData(data: any) {
     this.commonData.next(data);
   }
-
-
 
   // for Seeting color of theme.
   private themeData = new BehaviorSubject<any>(colors.DEFAULTTHEMECOLOR);
@@ -102,56 +86,6 @@ export class Commonservice {
 
   public setThemeData(data: any) {
     this.themeData.next(data);
-  }
-
-  // For opening content from left navigation links.
-  private navigatedData = new BehaviorSubject<boolean>(false);
-  currentNavigatedData = this.navigatedData.asObservable();
-
-  public setNavigatedData(navigationLink: boolean) {
-    this.navigatedData.next(navigationLink);
-  }
-
-  // For signup navigation link
-  private navigatedFromData = new BehaviorSubject<number>(2);
-  currentNavigatedFromValue = this.navigatedFromData.asObservable();
-
-  public setCurrentNavigatedFromData(value: number) {
-    this.navigatedFromData.next(value);
-  }
-
-  // sidebar code
-  private isRigntSideBarOpenData = new BehaviorSubject<boolean>(false);
-  currentSideBarOpenStatus = this.isRigntSideBarOpenData.asObservable();
-
-  public setRightSidebarStatus(open: boolean) {
-    this.isRigntSideBarOpenData.next(open);
-  }
-
-  // Refresh List
-  private openPDFSub = new BehaviorSubject<any>(null);
-  refreshPDFSubscriber = this.openPDFSub.asObservable();
-
-  public refreshDisplyPDF(data: any) {
-    this.openPDFSub.next(data);
-  }
-
-
-  // for Seeting color of theme.
-  private purchaseInquiryAttachmentGrid = new BehaviorSubject<any>(true);
-  purchaseInquiryAttachmentGridStatus = this.purchaseInquiryAttachmentGrid.asObservable();
-
-  public setPurchaseInquiryAttachmentGrid(data: any) {
-    this.purchaseInquiryAttachmentGrid.next(data);
-  }
-
-
-  //  share data between landing and signup page
-  private customerUserDataSub = new BehaviorSubject<any>(null);
-  getcustomerUserDataSub = this.customerUserDataSub.asObservable();
-
-  public passCustomerUserDataToSignup(data: any) {
-    this.customerUserDataSub.next(data);
   }
 
   checkAndScanCode(vendCode: string, scanInputString) {
@@ -167,6 +101,14 @@ export class Commonservice {
 
   }
 
+   // Refresh List
+   private openPDFSub = new BehaviorSubject<any>(null);
+   refreshPDFSubscriber = this.openPDFSub.asObservable();
+ 
+   public refreshDisplyPDF(data: any) {
+     this.openPDFSub.next(data);
+   }
+   
   //Get Setting from DB
   getSettingOnSAP(): Observable<any> {
     //JSON Obeject Prepared to be send as a param to API
@@ -214,5 +156,21 @@ export class Commonservice {
     localStorage.setItem("VendName", "");
     localStorage.setItem("selectedPO", "");
     localStorage.setItem("PONumber", "");
+  }
+
+  getPrintingLabelData(item: string, rptId: string): Observable<any> {
+    let jObject: any = {
+      PrintingObject: JSON.stringify([{
+        CompanyDBId: localStorage.getItem(Constants.CompID),
+        USERID: localStorage.getItem(Constants.UserId),
+        Item: item,
+        WorkOrder: localStorage.getItem(Constants.workCenter),
+        TaskId: localStorage.getItem(Constants.TaskId),
+        RPTID: rptId,
+        Warehouse: localStorage.getItem(Constants.whseId)  
+      }])
+    };
+    //Return the response form the API  
+    return this.httpclient.post(this.config_params.service_url + ApiUtils.url_SFDCPrinting, jObject, this.httpOptions);
   }
 }

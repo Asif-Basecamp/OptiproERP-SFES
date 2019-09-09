@@ -1,30 +1,46 @@
- <!-- Kendo Grid Start -->
- <kendo-grid [data]="gridData" [height]="410">
-        <kendo-grid-column media="(max-width: 450px)" title="Items">
-            <ng-template kendoGridCellTemplate let-dataItem>
-                <!-- template for mobile -->
-                <dl>
-                    <dt>Product ID</dt>
-                    <dd>{{ dataItem.ProductID}}</dd>
+<!-- Kendo Grid Start -->
+<kendo-grid [data]="resourceList" [height]="410">
+    <kendo-grid-column media="(max-width: 450px)" title="Items">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- template for mobile -->
+            <dl>
+                <dt>{{'ResPlanned'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_PLANNEDRES}}</dd>
 
-                    <dt>Product Name</dt>
-                    <dd>{{ dataItem.ProductName }}</dd>
+                <dt>{{'ResInstPlanned'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_PLANNEDRESINST }}</dd>
 
-                    <dt>Category Name</dt>
-                    <dd>{{ dataItem.Category.CategoryName }}</dd>
-                </dl>
-            </ng-template>
-        </kendo-grid-column>
-        
-        <!-- columns for mid-size devices -->
-        <kendo-grid-column media="(min-width: 768px)" field="ProductID" title="ID" width="40">
-        </kendo-grid-column>
-        <kendo-grid-column media="(min-width: 768px)" field="ProductName" title="Name" width="250">
-        </kendo-grid-column>
-        <kendo-grid-column media="(min-width: 768px)" field="Category.CategoryName" title="Category">
-        </kendo-grid-column>
-        <kendo-grid-column media="(min-width: 768px)" field="UnitPrice" title="Price" width="80">
-        </kendo-grid-column>
-        <kendo-grid-column media="(min-width: 768px)" field="UnitsInStock" title="In stock" width="80">
-        </kendo-grid-column>
-      </kendo-grid>
+                <dt>{{'ResUsed'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_UPDATEDRES }}</dd>
+
+                <dt>{{'ResInstUsed'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_UPDATEDRESINST}}</dd>
+
+                <dt>{{'WorkTime'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_OPNENDDATETIME }}</dd>
+
+                <dt>{{'BreakTime'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_REMAININGQTY }}</dd>
+
+                <dt>{{'DownTime'|translate}}</dt>
+                <dd>{{ dataItem.OPTM_REMAININGQTY }}</dd>
+            </dl>
+        </ng-template>
+    </kendo-grid-column>
+
+    <!-- columns for mid-size devices -->
+    <kendo-grid-column media="(min-width: 768px)" field="OPTM_PLANNEDRES" title="{{'ResPlanned'|translate}}" width="50">
+    </kendo-grid-column>
+    <kendo-grid-column media="(min-width: 768px)" field="OPTM_PLANNEDRESINST" title="{{'ResInstPlanned'|translate}}" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column media="(min-width: 768px)" field="OPTM_UPDATEDRES" title="{{'ResUsed'|translate}}" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column media="(min-width: 768px)" field="OPTM_UPDATEDRESINST" title="{{'ResInstUsed'|translate}}" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column media="(min-width: 768px)" field="worktime" title="{{'WorkTime'|translate}}" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column media="(min-width: 768px)" field="breaktime" title="{{'BreakTime'|translate}}" width="50">
+    </kendo-grid-column>
+    <kendo-grid-column media="(min-width: 768px)" field="downtime" title="{{'DownTime'|translate}}" width="50">
+    </kendo-grid-column>
+</kendo-grid>
