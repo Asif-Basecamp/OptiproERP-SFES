@@ -9,6 +9,7 @@ import { GetExistingTaskDetail } from 'src/app/model/GetExistingTaskDetail';
 import { SAVETASK } from 'src/app/model/SAVETASK';
 import { Geneology } from 'src/app/model/Geneology';
 import { DateFormatPipe } from 'src/app/common/date-format.pipe';
+import { ResourcesService } from 'src/app/services/resources.service';
 
 @Component({
   selector: 'app-time-entry',
@@ -38,7 +39,8 @@ export class TimeEntryComponent implements OnInit {
   requestSAVETASK: SAVETASK;
 
   constructor(private notificationService: NotificationService,
-    private timeentryService: TimeentryService, private translate: TranslateService, private datePipe: DateFormatPipe) {
+    private timeentryService: TimeentryService, private translate: TranslateService, private datePipe: DateFormatPipe,
+    private resourceService: ResourcesService) {
 
     this.selectedInterruptReason = { Code: "0", Description: this.translate.instant("SelectReason"), Type: "0" };
     this.requestSAVETASK = new SAVETASK();
@@ -154,16 +156,17 @@ export class TimeEntryComponent implements OnInit {
         } else {
           if (data != null && data != undefined) {
             if (method == Constants.mStartResume) {
-
+              this.saveResourceDetails("Start");
             } else if (method == Constants.mInterrupt) {
               this.interruptReasonEnable = true;
               this.existingTaskDetails.OPTM_INTRPTDATE = "" + this.currentDateTime;
+              this.saveResourceDetails("Interupt");
             } else if (method == Constants.mAbortRecord) {
-
+              this.saveResourceDetails("Abort");
             } else if (method == Constants.mFinish) {
-
+              this.saveResourceDetails("Finish");
             } else if (method == Constants.mSubmit) {
-
+              this.saveResourceDetails("Submit");
             }
           } else {
             this.show(this.translate.instant("CommonNoDataAvailableMsg"));
@@ -208,8 +211,8 @@ export class TimeEntryComponent implements OnInit {
       this.requestSAVETASK.InteruptDateTime = "";
       this.requestSAVETASK.OpnStartPer = this.selectedTaskModel.FormattedOprStartPer;
       this.requestSAVETASK.OpnEndPer = this.selectedTaskModel.FormattedOprEndPer;
-      this.requestSAVETASK.OpnQtyOnOpn = ""+this.selectedTaskModel.OPTM_REMAININGQTY;
-      this.requestSAVETASK.OrderQty = ""+this.selectedTaskModel.OPTM_QTYTOPROD;
+      this.requestSAVETASK.OpnQtyOnOpn = "" + this.selectedTaskModel.OPTM_REMAININGQTY;
+      this.requestSAVETASK.OrderQty = "" + this.selectedTaskModel.OPTM_QTYTOPROD;
       this.requestSAVETASK.AssignedQty = "" + this.selectedTaskModel.AssignedQty;
       this.requestSAVETASK.AssignedTime = "" + this.selectedTaskModel.AssignedTime;
       this.requestSAVETASK.OpenStandardTime = this.selectedTaskModel.FormattedStdTime;
@@ -231,7 +234,7 @@ export class TimeEntryComponent implements OnInit {
       this.requestSAVETASK.Resource = this.selectedTaskModel.OPTM_SCHRESOURCE; /// Resource
       this.requestSAVETASK.CreateDate = this.selectedTaskModel.OPTM_CREATEDATE;
       this.requestSAVETASK.Tracking = localStorage.getItem(Constants.ItemManagedBy);
-      this.requestSAVETASK.OPTMID = "" ; // Requiredddddddddddddddddddddddddddddddd
+      this.requestSAVETASK.OPTMID = ""; // Requiredddddddddddddddddddddddddddddddd
       this.requestSAVETASK.Allocper = "0";
 
       this.requestSAVETASK.ToOperationNo = "" + this.selectedTaskModel.OPTM_FROMOPERNO;
@@ -268,8 +271,8 @@ export class TimeEntryComponent implements OnInit {
       this.requestSAVETASK.InteruptDateTime = this.datePipe.transform(this.currentDateTime, Constants.Format_Order_StartDate);
       this.requestSAVETASK.OpnStartPer = "" + this.selectedTaskModel.OpnStartPer;
       this.requestSAVETASK.OpnEndPer = "" + this.selectedTaskModel.OpnEndPer;
-      this.requestSAVETASK.OpnQtyOnOpn = ""+this.selectedTaskModel.OPTM_QTYTOPROD;
-      this.requestSAVETASK.OrderQty = ""+this.selectedTaskModel.OPTM_QTYTOPROD;
+      this.requestSAVETASK.OpnQtyOnOpn = "" + this.selectedTaskModel.OPTM_QTYTOPROD;
+      this.requestSAVETASK.OrderQty = "" + this.selectedTaskModel.OPTM_QTYTOPROD;
       this.requestSAVETASK.AssignedQty = "" + this.selectedTaskModel.AssignedQty;
       this.requestSAVETASK.AssignedTime = "" + this.selectedTaskModel.AssignedTime;
       this.requestSAVETASK.OpenStandardTime = this.selectedTaskModel.FormattedStdTime;
@@ -299,9 +302,119 @@ export class TimeEntryComponent implements OnInit {
       this.requestSAVETASK.Username = localStorage.getItem(Constants.username);
       this.requestSAVETASK.skipComponentCheck = "";
     } else if (method == Constants.mAbortRecord) {
+      var model: any = {
+        TaskCode: this.selectedTaskModel.OPTM_TASKCODE,
+        WO: this.selectedTaskModel.OPTM_WONO,
+        Warehouse: localStorage.getItem(Constants.whseId),
+        WC: this.selectedTaskModel.OPTM_WC,
+        WorkCenter: this.selectedTaskModel.OPTM_WC,
+        OperationNo: "" + this.selectedTaskModel.OPTM_FROMOPERNO,
+        OperationDesc: this.selectedTaskModel.OPTM_FROMOPRCODE,
+        Item: this.selectedTaskModel.OPTM_FGCODE,
+        Description: this.selectedTaskModel.Description,
+        Duration: "" + this.selectedTaskModel.OPTM_DURATIONMINS,
+        StartDate: "",
+        EndDateTime: "",
+        IntereuptDate: "",
+        ProducedQty: "" + this.selectedTaskModel.OPTM_QTYTOPROD,
+        AcceptedQty: "0",
+        RejectedQty: "0",
+        NCQty: "0",
+        ResDtlCode: "",
+        Reason: "",
+        Remarks: "",
+        AbortReason: "",
+        OrderDueDate: this.datePipe.transform(this.selectedTaskModel.U_O_STARTDATE, Constants.Format_Order_StartDate),
+        OrderStartDate: this.datePipe.transform(this.selectedTaskModel.U_O_ENDDATE, Constants.Format_Order_StartDate),
+        UserId: this.selectedTaskModel.OPTM_USERID,
+        ResType: "",
+        StartResume: this.datePipe.transform(this.existingTaskDetails.OPTM_RESUMEDATE, Constants.Format_Order_StartDate),
+        InteruptDateTime: this.datePipe.transform(this.currentDateTime, Constants.Format_Order_StartDate),
+        OpnStartPer: "" + this.selectedTaskModel.OpnStartPer,
+        OpnEndPer: "" + this.selectedTaskModel.OpnEndPer,
+        OpnQtyOnOpn: "" + this.selectedTaskModel.OPTM_QTYTOPROD,
+        OrderQty: "" + this.selectedTaskModel.OPTM_QTYTOPROD,
+        AssignedQty: "" + this.selectedTaskModel.AssignedQty,
+        AssignedTime: "" + this.selectedTaskModel.AssignedTime,
+        OpenStandardTime: this.selectedTaskModel.FormattedStdTime,
+        BreakDownTime: "",
+        WorkTime: "",
+        CompanyDBId: localStorage.getItem(Constants.CompID),
+        Status: this.selectedTaskModel.OPTM_STATUS,
+        PostingReady: "",
+        Posted: "",
+        PostedDate: "",
+        ResInstance: this.selectedTaskModel.OPTM_RESINSTANCE,
+        MoveOrderNo: "",
+        ReasonType: "",
+        BreakTime: "",
+        DownTime: "",
+        EmpId: localStorage.getItem(Constants.EmpID),
+        RequireMachine: localStorage.getItem(Constants.machine),
+        Resume: "",
+        Resource: this.selectedTaskModel.OPTM_SCHRESOURCE,
+        CreateDate: this.selectedTaskModel.OPTM_CREATEDATE,
+        Tracking: localStorage.getItem(Constants.ItemManagedBy),
+        OPTMID: "", // Requiredddddddddddddddddddddddddddddddd
 
+        ToOperationNo: "" + this.selectedTaskModel.OPTM_FROMOPERNO,
+        GUID: localStorage.getItem(Constants.GUID),
+        TaskId: localStorage.getItem(Constants.TaskId),
+        Username: localStorage.getItem(Constants.username),
+        skipComponentCheck: ""
+      };
+
+      return model;
     }
 
     return this.requestSAVETASK;
+  }
+
+  saveResourceDetails(operationType: string) {
+    var resourceArr: any[];
+    for (var i = 0; i < this.resourceList.length; i++) {
+      var model: any = {
+        WorkOrder: this.resourceList[i].WorkOrder,
+        ResourcePlanned: this.resourceList[i].ResourcePlanned,
+        ResourceInstancePlanned: this.resourceList[i].ResourceInstancePlanned,
+        ResourceUsed: this.resourceList[i].ResourceUsed,
+        ResInstanceUsed: this.resourceList[i].ResInstanceUsed,
+        WorkTime: this.resourceList[i].WorkTime,
+        BreakTime: this.resourceList[i].BreakTime,
+        DownTime: this.resourceList[i].DownTime,
+        CompanyDBId: this.resourceList[i].CompanyDBId,
+        TaskHDId: this.resourceList[i].TaskHDId,
+        Operation: operationType,
+        ResourceType: this.resourceList[i].ResourceType,
+        GUID: localStorage.getItem(Constants.GUID),
+        Username: localStorage.getItem(Constants.username),
+      };
+      resourceArr.push(model);
+    }
+
+    var jObject = {
+      SUBMITTASKDETAILS: JSON.stringify(resourceArr)
+    };
+
+    console.log("called saveResourceDetail");
+
+    this.resourceService.saveResourceDetail(jObject).subscribe(
+      data => {
+        this.showLoader = false;
+        if (data != undefined && data.ErrorMsg == "7001") {
+
+        } else {
+          if (data != null && data != undefined) {
+
+          } else {
+            this.show(this.translate.instant("CommonNoDataAvailableMsg"));
+          }
+        }
+      },
+      error => {
+        this.showLoader = false;
+        this.show(this.translate.instant("CommonNoDataAvailableMsg"));
+      }
+    );
   }
 }
